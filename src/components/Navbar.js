@@ -1,16 +1,65 @@
 import React from "react";
 import styled from "styled-components"
+import { Link } from "react-router-dom";
 
-const NavbarContainer = styled.div`
-    width: 100%;
-    height: 30px;
-    background-color: #f1b4bb;
+import logo_pink from "../assets/icons/logo_pink.png";
+import userIcon from "../assets/icons/userIcon_green.png";
+
+const NavContainer = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 20px;
+  background-color: #f1b4bb;
+`;
+
+const TextLink = styled(Link)`
+  text-decoration: none;
+`
+
+const NavItems = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const NavItem = styled.div`
+  margin: 0 10px;
+  color: #132043;
+  font-size: 16px;
 `;
 
 const Navbar = () => {
-    return(
-        <NavbarContainer></NavbarContainer>
-    );
+  // 로그인 기능 구현 전 임시
+  const isLoggedIn = true;
+
+  return(
+  <NavContainer>
+    <NavItems>
+      <TextLink to="/">
+        <img src={logo_pink} alt={'Logo'} style={{ width: 'auto', height: '50px', marginTop: '5px', marginRight: '10px' }} />
+      </TextLink>
+      <TextLink to="/">
+        <NavItem>Typing</NavItem>
+      </TextLink>
+      <TextLink to="/ranking">
+        <NavItem>Ranking</NavItem>
+      </TextLink>
+    </NavItems>
+  <NavItems>
+    {isLoggedIn===true ? (
+        <>
+          <img src={userIcon} alt={'userIcon'} style={{ width: 'auto', height: '25px', marginTop: '5px'}} />
+          <NavItem>abc</NavItem>
+          <NavItem>Logout</NavItem>
+        </>
+      ) : (
+        <TextLink to="/login">
+          <NavItem>Login</NavItem>
+        </TextLink>
+      )}
+    </NavItems>
+  </NavContainer>    
+  );
 };
 
 export default Navbar;
