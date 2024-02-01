@@ -36,7 +36,7 @@ function FriendModal(props) {
     return (
         <ModalContainer
           {...props}
-          size="xl"
+          size="lg"
           centered
         >
            

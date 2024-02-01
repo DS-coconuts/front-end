@@ -8,7 +8,7 @@ import AddFriendIcon from "../components/AddFriendIcon";
 
 const PageContainer = styled.div`
     height: 800px;
-    padding: 150px;
+    padding: 150px 500px;
     background: #132043;
     margin: 0 auto;
 `;
@@ -24,7 +24,7 @@ const TitleContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    padding: 0 250px;
+    padding: 0 100px;
 ` 
 
 
@@ -45,6 +45,7 @@ const FriendListPage = () => {
                 text={'아자아자아자아자아자'}
                 buttonText={'방문하기'}
             />
+            
             <FriendList 
                 img={userIconGreen} 
                 altText={'user2Icon'} 

@@ -3,7 +3,7 @@ import styled from "styled-components"
 import FriendButton from "./FriendButton";
 
 const FriendContainer = styled.div`
-    width: 70%;
+    width: 80%;
     height: 150px;
     padding: 0 20px;
     margin: 20px auto;
