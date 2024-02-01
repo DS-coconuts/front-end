@@ -17,7 +17,7 @@ const FilterButton = styled.button`
     height: 50px;
     margin: 17px auto;
     color: #FFFFFF;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
     border: none;
     &:hover {

@@ -27,7 +27,7 @@ const RankTitle = styled.div`
     font-weight: bold;
     text-align: center;
     margin: 0 auto;
-    padding: 0 0 0 180px;
+    padding: 30px 0 0 30px;
     width: 700px;
 `
 
@@ -54,7 +54,7 @@ const Subtitle = styled.div`
 const RankingPage = () => {
     return (
         <PageContainer>
-             <RankTitle>Ranking</RankTitle>
+             <RankTitle>RANKING</RankTitle>
              <RankContent>
                 <RankingFilter />
                 <RankWrapper>
