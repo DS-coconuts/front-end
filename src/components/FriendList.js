@@ -4,7 +4,7 @@ import FriendButton from "./FriendButton";
 
 const FriendContainer = styled.div`
     width: 80%;
-    height: 150px;
+    height: 130px;
     padding: 0 20px;
     margin: 20px auto;
     border-radius: 30px;

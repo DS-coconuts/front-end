@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Button from 'react-bootstrap/Button';
 
 const SearchContainer=styled.div`
+    width: 700px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -35,7 +36,8 @@ const StyledButton = styled(Button)`
 
 
 const StyledForm = styled(Form)`
-    width: 600px;
+    margin: 0 55px;
+    width: 550px;
     height: 55px; 
     font-size: 19px; 
     border-radius: 25px;

@@ -15,7 +15,7 @@ const PageContainer = styled.div`
 
 const Title=styled.div`
     font-size: 35px;
-    font-weight: bold;
+   
     color: #F1B4BB;
     justify-content: space-between;
 `

@@ -22,24 +22,26 @@ const ModalHeader = styled(Modal.Header)`
 
 const ModalTitle = styled(Modal.Title)`
     margin: 0 auto;
-    padding: 0 400px;
+    width: 600px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 `
 
 const ModalBody = styled(Modal.Body)`
-    background: #424D68;
+     background: #424D68;
 `
+
 
 function FriendModal(props) {
     return (
         <ModalContainer
           {...props}
           size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
           centered
         >
-           
+            
           <ModalHeader closeButton>
             <ModalTitle id="contained-modal-title-vcenter">
               <SearchBar />
@@ -68,7 +70,6 @@ function FriendModal(props) {
                 buttonText={'친구추가'}
             />
           </ModalBody>
-        
       </ModalContainer>
     );
   }

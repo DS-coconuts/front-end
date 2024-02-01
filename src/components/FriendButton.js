@@ -8,11 +8,16 @@ const ButtonStyle = styled.button`
     margin: 0 15px;
     padding: 8px 20px;
     font-size: 20px;
-    font-weight: bold;
     color: #F1B4BB;
     background-color: rgba( 255, 255, 255, 0.2 );
     width: 130px;
     height: 50px;
+    &:hover {
+        background-color: rgba( 255, 255, 255, 0.7 );
+        font-weight: bold;
+        color: #132043;
+        transition: 0.5s;
+      }
 `;
 
 const FriendButton = ({text, onClick}) => {
