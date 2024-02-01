@@ -12,12 +12,14 @@ const ModalContainer = styled(Modal)`
     display: flex;
     justify-content: center;
     text-align: center;
+    margin: 0 auto;
 `   
 
 const ModalHeader = styled(Modal.Header)`
     background: #424D68;
     justify-content: center;
     padding: 30px;
+
 `
 
 const ModalTitle = styled(Modal.Title)`
