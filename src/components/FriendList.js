@@ -15,21 +15,21 @@ const FriendContainer = styled.div`
 `
 const ProfileStyle = styled.img`
     width: auto;
-    height: 120px;
+    height: 110px;
     margin-top: 5px;
     padding: 20px;
 `
 
 const InfoStyle = styled.div`
     color: #FFFFFF;
-    font-size: 20px;
+    font-size: 18px;
     margin-right: auto;
     text-align: left;
     padding: 15px;
 `
 
 const IdStyle = styled.div`
-    font-size: 28px;
+    font-size: 24px;
     margin: 0 0 7px 0;
 `
 const FriendList = ({img, altText, id, text, buttonText}) => {

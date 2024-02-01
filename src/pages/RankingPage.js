@@ -27,7 +27,7 @@ const RankTitle = styled.div`
     font-weight: bold;
     text-align: center;
     margin: 0 auto;
-    padding: 0 0 0 100px;
+    padding: 0 0 0 180px;
     width: 700px;
 `
 
