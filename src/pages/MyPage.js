@@ -49,7 +49,6 @@ const GoalButton = styled.button`
 
 const FriendButton = styled.button`
   padding: 10px 20px;
-  margin: 15px 90px;
   width: 220px;
   height: 80px;
   border: none;
@@ -62,6 +61,7 @@ const FriendButton = styled.button`
 
 const FriendLink = styled(Link)`
   align-self: flex-start;
+  margin: 15px 25px;
 `;
 
 const ProfilBox = styled.div`
