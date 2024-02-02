@@ -22,10 +22,11 @@ const NavItems = styled.div`
   align-items: center;
 `;
 
-const NavItem = styled.div`
+const NavItem = styled.p`
   margin: 0 10px;
   color: #132043;
   font-size: 16px;
+  font-family: 'NanumSquareNeo';
 `;
 
 const Navbar = () => {
@@ -49,7 +50,9 @@ const Navbar = () => {
     {isLoggedIn===true ? (
         <>
           <img src={userIcon} alt={'userIcon'} style={{ width: 'auto', height: '25px', marginTop: '5px'}} />
-          <NavItem>abc</NavItem>
+          <TextLink to="/my">
+            <NavItem>abc</NavItem>
+          </TextLink>
           <NavItem>Logout</NavItem>
         </>
       ) : (
