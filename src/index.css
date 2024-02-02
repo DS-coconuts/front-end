@@ -9,11 +9,18 @@
   src: url("./assets/Font/NanumSquareNeoTTF-bRg.woff") format("woff");
 }
 
+@font-face {
+  font-family: 'D2 coding';
+  font-style: normal;
+  font-weight: 400;
+  src: url("./assets/Font/D2CODING-VER1.3.2-20180524.TTC") format("TrueType");
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    'NanumSquareNeo', 'bitbit', 
+    'NanumSquareNeo', 'bitbit', 'D2 coding',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

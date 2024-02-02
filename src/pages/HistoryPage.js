@@ -84,7 +84,7 @@ const HistoryPage = () => {
             <img src={logo_JavaScript} alt={'logo_JavaScript'} style={{ width: 'auto', height: '43px'}} />
           </LanButton>
         </LanButtons>
-        {dummydata.map((value, palce) => (
+        {dummydata.map((value) => (
           <TypingHistory 
             language={value.language}
             cpm={value.cpm}
