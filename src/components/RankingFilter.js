@@ -9,7 +9,7 @@ const FilterContainer = styled.div`
     background-color: rgba( 255, 255, 255, 0.3 );
     border-radius: 0 150px 30px 30px;
     text-align: center;
-    font-family:'DNFBitBitv2';
+    font-family:'bitbit';
 `
 
 const FilterButton = styled.button`
