@@ -1,13 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
+import { VscDebugRestart } from "react-icons/vsc";
+import ResultIcon from '../components/ResultIcon';
+
 const PageContainer = styled.div`
   background-color: #132043;
   padding: 50px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 700px;
+  height: 100%;
 `;
 
 const Box = styled.div`
@@ -30,7 +33,7 @@ const SourceText = styled.p`
 
 const TimerBox = styled.div`
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
-  padding: 10px 20px;
+  padding: 0px 20px;
   border: none;
   border-radius: 15px;
   background-color: #1F4172;
@@ -47,6 +50,7 @@ const TopBox = styled.div`
   align-items: flex-end;
   height: 50px;
   width: 970px;
+  margin-top: 10px;
 `;
 
 const TextInput = styled.input`
@@ -70,6 +74,15 @@ const TextCode = styled.p`
 
 const TextBox = styled.div`
   margin: 5px;
+`
+
+const IconBox = styled.div`
+  margin: 15px auto;
+  padding: 0;
+  width: 600px;
+  display: flex;
+  align-items: center;
+  text-align: center;
 `
 
 const TypingPage = () => {
@@ -100,6 +113,10 @@ const TypingPage = () => {
       ))}
       
       </Box>
+
+      <IconBox>
+        <ResultIcon icon={VscDebugRestart} />
+      </IconBox>
     </PageContainer>
   );
 };
