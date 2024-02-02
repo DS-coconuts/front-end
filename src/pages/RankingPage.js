@@ -5,7 +5,6 @@ import userIconPink from "../assets/icons/userIcon_pink.png";
 import userIconGreen from "../assets/icons/userIcon_green.png";
 import userIconBrown from "../assets/icons/userIcon_brown.png";
 import RankingFilter from '../components/RankingFilter';
-import '../fonts/index.css';
 
 const PageContainer = styled.div`
     width: 100%;
@@ -13,7 +12,7 @@ const PageContainer = styled.div`
     padding: 100px;
     background: #132043;
     margin: 0 auto;
-    font-family:'NanumSquareNeo-Variable'; 
+    font-family:'NanumSquareNeo'; 
 `;
 
 const RankContent = styled.div`
@@ -30,7 +29,7 @@ const RankTitle = styled.div`
     margin: 0 auto;
     padding: 30px 0 0 30px;
     width: 700px;
-    font-family:'DNFBitBitv2';
+    font-family:'bitbit';
 `
 
 const RankWrapper = styled.div`
@@ -50,7 +49,7 @@ const Subtitle = styled.div`
     align-item: center;
     padding: 0 60px;
     margin: 20px 23px;
-    font-family:'DNFBitBitv2';
+    font-family:'bitbit';
 `
 
 const RankingPage = () => {
