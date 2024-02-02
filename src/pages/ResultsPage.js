@@ -2,6 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import ResultGraph from '../components/ResultGraph';
 
+import { GrNext } from "react-icons/gr";
+import { VscDebugRestart } from "react-icons/vsc";
+import { FaRankingStar } from "react-icons/fa6";
+import { MdPhotoSizeSelectActual } from "react-icons/md";
+import ResultIcon from '../components/ResultIcon';
+
 const PageContainer = styled.div`
     width: 100%;
     height: 800px;
@@ -65,6 +71,16 @@ const CharContent = styled.div`
     text-align: left;
 `
 
+const IconBox = styled.div`
+    margin: 15px auto;
+    padding: 0;
+    width: 600px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+   
+`
+
 const ResultsPage = () => {
     return (
         <PageContainer>
@@ -92,6 +108,12 @@ const ResultsPage = () => {
                     </CharContent>
                 </GraphBox>
            </ResultBox>
+           <IconBox>
+            <ResultIcon icon={GrNext} />
+            <ResultIcon icon={VscDebugRestart} />
+             <ResultIcon icon={FaRankingStar} />
+            <ResultIcon icon={MdPhotoSizeSelectActual} />
+           </IconBox>
         </PageContainer>
     );
 };
