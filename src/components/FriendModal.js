@@ -4,9 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from "styled-components";
 import SearchBar from './SearchBar';
 import FriendList from '../components/FriendList';
-import userIconPink from "../assets/icons/userIcon_pink.png";
-import userIconBrown from "../assets/icons/userIcon_green.png";
-import userIconGreen from "../assets/icons/userIcon_brown.png";
 import { addFriendData } from '../assets/data/addFriendData';
 
 const ModalContainer = styled(Modal)`
@@ -56,6 +53,20 @@ const FriendContainer = styled.div`
 
 function FriendModal(props) {
     const [friends, setFriends] = useState(addFriendData.results);
+    const [searchTerm, setSearchTerm] = useState('');
+
+    //검색창
+    const handleSearch = (term) => {
+      setSearchTerm(term.toLowerCase()); // 검색어 업데이트
+  };
+    
+  // 검색어와 선택된 카테고리에 따라 데이터 필터링하는 함수
+  const searchedFriend = friends.filter(friend => {
+    const matchesSearch = !searchTerm || friend.id.toLowerCase().includes(searchTerm);
+
+    return matchesSearch;
+});
+
     return (
         <ModalContainer
           {...props}
@@ -66,12 +77,12 @@ function FriendModal(props) {
             
           <ModalHeader closeButton>
             <ModalTitle id="contained-modal-title-vcenter">
-              <SearchBar />
+              <SearchBar setSearchTerm={handleSearch}/>
             </ModalTitle>
           </ModalHeader>
           <ModalBody>
           <FriendContainer>
-          {friends.map((friend) => (
+          {searchedFriend.map((friend) => (
                     <FriendList
                     key={friend.key}
                     img={friend.img} 
