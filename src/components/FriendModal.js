@@ -21,7 +21,6 @@ const ModalHeader = styled(Modal.Header)`
     background: #424D68;
     justify-content: center;
     padding: 30px;
-
 `
 
 const ModalTitle = styled(Modal.Title)`

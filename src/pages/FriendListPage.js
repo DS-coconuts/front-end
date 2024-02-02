@@ -11,6 +11,10 @@ const PageContainer = styled.div`
     background: #132043;
     margin: 0 auto;
     font-family:'NanumSquareNeo-Variable'; 
+
+    @media (max-width: 1500px) {
+        padding: 150px 100px; /* 작은 화면일 때 패딩값 변경 */
+    }
 `;
 
 const FriendContainer = styled.div`
@@ -34,7 +38,7 @@ const Title=styled.div`
     font-size: 35px;
     font-family:'DNFBitBitv2';
     color: #F1B4BB;
-    justify-content: space-between;
+    justify-content: center;
 `
 
 const TitleContainer = styled.div`
