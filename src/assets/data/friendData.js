@@ -1,6 +1,6 @@
-import userIconPink from "./assets/icons/userIcon_pink.png"
-import userIconBrown from "./assets/icons/userIcon_green.png";
-import userIconGreen from "./assets/icons/userIcon_brown.png";
+import userIconPink from "../icons/userIcon_pink.png"
+import userIconBrown from "../icons/userIcon_green.png";
+import userIconGreen from "../icons/userIcon_brown.png";
 
 export const friendData = {
     results: [

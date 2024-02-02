@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import Logo from "../img/Logo.svg";
-import ProfileImg from "../img/UserProfileSymbol.svg";
-import IdImg from "../img/IdSymbol.svg";
-import PasswordImg from "../img/PasswordSymbol.svg";
+import Logo from "../assets/icons/Logo.svg";
+import ProfileImg from "../assets/icons/UserProfileSymbol.svg";
+import IdImg from "../assets/icons/IdSymbol.svg";
+import PasswordImg from "../assets/icons/PasswordSymbol.svg";
 
 const PageContainer = styled.div`
   background-color: #132043; /* 원하는 배경색을 여기에 지정하세요 */

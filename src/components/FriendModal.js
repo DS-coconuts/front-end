@@ -7,14 +7,14 @@ import FriendList from '../components/FriendList';
 import userIconPink from "../assets/icons/userIcon_pink.png";
 import userIconBrown from "../assets/icons/userIcon_green.png";
 import userIconGreen from "../assets/icons/userIcon_brown.png";
-import { addFriendData } from '../addFriendData';
+import { addFriendData } from '../assets/data/addFriendData';
 
 const ModalContainer = styled(Modal)`
     display: flex;
     justify-content: center;
     text-align: center;
     margin: 0 auto;
-    font-family:'NanumSquareNeo-Variable'; 
+    font-family:'NanumSquareNeo'; 
 `   
 
 const ModalHeader = styled(Modal.Header)`

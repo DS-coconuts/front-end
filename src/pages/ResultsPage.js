@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ResultGraph from '../components/ResultGraph';
-import '../fonts/index.css';
+
 import { GrNext } from "react-icons/gr";
 import { VscDebugRestart } from "react-icons/vsc";
 import { FaRankingStar } from "react-icons/fa6";
@@ -14,7 +14,7 @@ const PageContainer = styled.div`
     padding: 100px;
     background: #132043;
     margin: 0 auto;
-    font-family:'NanumSquareNeo-Variable'; 
+    font-family:'NanumSquareNeo'; 
 `;
 
 
@@ -25,7 +25,7 @@ const ResultTitle = styled.div`
     margin: 0 auto;
     width: 700px;
     padding: 30px;
-    font-family:'DNFBitBitv2';
+    font-family:'bitbit';
 `
 
 const ResultBox = styled.div`
