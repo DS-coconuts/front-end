@@ -26,7 +26,7 @@ const NavItem = styled.div`
   margin: 0 10px;
   color: #132043;
   font-size: 16px;
-`;
+  `;
 
 const Navbar = () => {
   // 로그인 기능 구현 전 임시
@@ -49,7 +49,9 @@ const Navbar = () => {
     {isLoggedIn===true ? (
         <>
           <img src={userIcon} alt={'userIcon'} style={{ width: 'auto', height: '25px', marginTop: '5px'}} />
-          <NavItem>abc</NavItem>
+          <TextLink to="/my">
+            <NavItem>abc</NavItem>
+          </TextLink>
           <NavItem>Logout</NavItem>
         </>
       ) : (
