@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from "styled-components";
@@ -7,6 +7,7 @@ import FriendList from '../components/FriendList';
 import userIconPink from "../assets/icons/userIcon_pink.png";
 import userIconBrown from "../assets/icons/userIcon_green.png";
 import userIconGreen from "../assets/icons/userIcon_brown.png";
+import { addFriendData } from '../addFriendData';
 
 const ModalContainer = styled(Modal)`
     display: flex;
@@ -36,7 +37,26 @@ const ModalBody = styled(Modal.Body)`
 `
 
 
+const FriendContainer = styled.div`
+    max-height: 500px;
+    overflow-y: auto;  /* 스크롤 기능 활성화 */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color:  transparent transparent; /* Firefox */
+    &::-webkit-scrollbar {
+        background-color: transparent /* 투명도 설정 */
+        border-radius: 10px; /* 선택적으로 테두리 반경 설정 */
+        width: 5px; /* 스크롤바 너비 */
+        height: 3px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent; /* 스크롤바 색상 */
+        border-radius: 10px;
+    }
+`
+
+
 function FriendModal(props) {
+    const [friends, setFriends] = useState(addFriendData.results);
     return (
         <ModalContainer
           {...props}
@@ -51,27 +71,18 @@ function FriendModal(props) {
             </ModalTitle>
           </ModalHeader>
           <ModalBody>
-            <FriendList 
-                img={userIconPink} 
-                altText={'user1Icon'} 
-                id={'qwer'}
-                text={'아자아자아자아자아자'}
-                buttonText={'친구추가'}
-            />
-            <FriendList 
-                img={userIconGreen} 
-                altText={'user1Icon'} 
-                id={'qasf'}
-                text={'아자아자아자아자아자'}
-                buttonText={'친구추가'}
-            />
-            <FriendList 
-                img={userIconBrown} 
-                altText={'user1Icon'} 
-                id={'gsdgfsdg'}
-                text={'아자아자아자아자아자'}
-                buttonText={'친구추가'}
-            />
+          <FriendContainer>
+          {friends.map((friend) => (
+                    <FriendList
+                    key={friend.key}
+                    img={friend.img} 
+                    altText={friend.altText} 
+                    id={friend.id}
+                    text={friend.text}
+                    buttonText={'친구추가'}
+                    />
+                ) )}
+            </FriendContainer>
           </ModalBody>
       </ModalContainer>
     );
