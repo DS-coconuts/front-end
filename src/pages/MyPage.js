@@ -85,6 +85,7 @@ const InfoTitleText = styled.p`
   font-family: 'bitbit';
   margin: 0px;
 `;
+
 const InfoText = styled.p`
   font-size: 32px;
   color: #fff;
