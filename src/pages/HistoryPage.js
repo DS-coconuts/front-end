@@ -22,19 +22,19 @@ const Box = styled.div`
   flex-direction: column;
   display: flex;
   align-items: center;
-  width: 70%;
-  height: 100%;
+  width: 800px;
+  height: 500px;
   border-radius: 20px;
-  background-color: #313D5B;
+  background-color: rgba( 255, 255, 255, 0.3 );
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
   padding: 10px;
 `;
 
 const LanButton = styled.button`
   padding: 10px 10px;
-  margin: 15px;
-  width: 170px;
-  height: 60px;
+  margin: 5px;
+  width: 130px;
+  height: 50px;
   border: none;
   border-radius: 30px;
   background-color: #fff;
@@ -69,19 +69,19 @@ const HistoryPage = () => {
       <Box>
         <LanButtons>
           <LanButton>
-            <img src={logo_python} alt={'logo_python'} style={{ width: 'auto', height: '40px'}} />
+            <img src={logo_python} alt={'logo_python'} style={{ width: 'auto', height: '30px'}} />
           </LanButton>
           <LanButton>
-            <img src={logo_JAVA} alt={'logo_JAVA'} style={{ width: 'auto', height: '40px'}} />
+            <img src={logo_JAVA} alt={'logo_JAVA'} style={{ width: 'auto', height: '30px'}} />
           </LanButton>
           <LanButton>
-            <img src={logo_C} alt={'logo_C'} style={{ width: 'auto', height: '43px'}} />
+            <img src={logo_C} alt={'logo_C'} style={{ width: 'auto', height: '30px'}} />
           </LanButton>
           <LanButton>
-            <img src={logo_HTML} alt={'logo_HTML'} style={{ width: 'auto', height: '35px', marginTop: '5px'}} />
+            <img src={logo_HTML} alt={'logo_HTML'} style={{ width: 'auto', height: '30px', marginTop: '2px'}} />
           </LanButton>
           <LanButton>
-            <img src={logo_JavaScript} alt={'logo_JavaScript'} style={{ width: 'auto', height: '43px'}} />
+            <img src={logo_JavaScript} alt={'logo_JavaScript'} style={{ width: 'auto', height: '33px'}} />
           </LanButton>
         </LanButtons>
         {dummydata.map((value) => (

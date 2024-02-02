@@ -19,22 +19,22 @@ const PageContainer = styled.div`
 `;
 
 const TitleText = styled.p`
-  font-size: 80px;
+  font-size: 50px;
   color: #f1b4bb;
   font-family: 'bitbit';
   margin: 0px;
 `;
 
 const SubTitleText = styled.p`
-  font-size: 24px;
+  font-size: 18px;
   color: #fff;
   font-family: 'NanumSquareNeo';
-  margin: 100px 0px;
+  margin: 0px 0px 30px 0px;
 `;
 
 const LoginTextLink = styled(Link)`
   text-decoration: none;
-  font-size: 40px;
+  font-size: 24px;
   color: #f1b4bb;
   font-family: 'bitbit';
   margin-top: 100px;
@@ -43,10 +43,10 @@ const LoginTextLink = styled(Link)`
 const LanButton = styled.button`
   padding: 10px 10px;
   margin: 15px;
-  width: 250px;
-  height: 100px;
+  width: 180px;
+  height: 70px;
   border: none;
-  border-radius: 15px;
+  border-radius: 20px;
   background-color: #fff;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
 `;
@@ -67,22 +67,22 @@ const MainPage = () => {
       <LanButtons>
         <Link to="/typing">
           <LanButton>
-            <img src={logo_python} alt={'logo_python'} style={{ width: 'auto', height: '50px'}} />
+            <img src={logo_python} alt={'logo_python'} style={{ width: 'auto', height: '40px'}} />
           </LanButton>
         </Link>
         <LanButton>
-          <img src={logo_JAVA} alt={'logo_JAVA'} style={{ width: 'auto', height: '75px'}} />
+          <img src={logo_JAVA} alt={'logo_JAVA'} style={{ width: 'auto', height: '40px'}} />
         </LanButton>
         <LanButton>
-          <img src={logo_C} alt={'logo_C'} style={{ width: 'auto', height: '75px'}} />
+          <img src={logo_C} alt={'logo_C'} style={{ width: 'auto', height: '40px'}} />
         </LanButton>
       </LanButtons>
       <LanButtons>
         <LanButton>
-          <img src={logo_HTML} alt={'logo_HTML'} style={{ width: 'auto', height: '60px', marginTop: '5px'}} />
+          <img src={logo_HTML} alt={'logo_HTML'} style={{ width: 'auto', height: '40px', marginTop: '5px'}} />
         </LanButton>
         <LanButton>
-          <img src={logo_JavaScript} alt={'logo_JavaScript'} style={{ width: 'auto', height: '80px'}} />
+          <img src={logo_JavaScript} alt={'logo_JavaScript'} style={{ width: 'auto', height: '40px'}} />
         </LanButton>
       </LanButtons>
         
