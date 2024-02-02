@@ -5,7 +5,7 @@ import userIconPink from "../assets/icons/userIcon_pink.png";
 import userIconGreen from "../assets/icons/userIcon_green.png";
 import userIconBrown from "../assets/icons/userIcon_brown.png";
 import AddFriendIcon from "../components/AddFriendIcon";
-import '../fonts/font.css';
+import '../fonts/index.css';
 
 const PageContainer = styled.div`
     height: 800px;

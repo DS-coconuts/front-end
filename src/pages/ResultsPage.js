@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ResultGraph from '../components/ResultGraph';
-import '../fonts/font.css';
+import '../fonts/index.css';
 
 const PageContainer = styled.div`
     width: 100%;
