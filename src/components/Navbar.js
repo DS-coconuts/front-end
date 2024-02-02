@@ -22,11 +22,12 @@ const NavItems = styled.div`
   align-items: center;
 `;
 
-const NavItem = styled.div`
+const NavItem = styled.p`
   margin: 0 10px;
   color: #132043;
   font-size: 16px;
-  `;
+  font-family: 'NanumSquareNeo';
+`;
 
 const Navbar = () => {
   // 로그인 기능 구현 전 임시

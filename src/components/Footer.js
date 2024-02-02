@@ -13,6 +13,7 @@ const Text = styled.p`
   font-size: 14px;
   color: #132043;
   text-align: center;
+  font-family: 'bitbit';
 `;
 
 const Footer = () => {
