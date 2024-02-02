@@ -1,11 +1,9 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styled from 'styled-components';
 import FriendList from '../components/FriendList';
-import userIconPink from "../assets/icons/userIcon_pink.png";
-import userIconGreen from "../assets/icons/userIcon_green.png";
-import userIconBrown from "../assets/icons/userIcon_brown.png";
 import AddFriendIcon from "../components/AddFriendIcon";
 import '../fonts/index.css';
+import { friendData } from '../friendData';
 
 const PageContainer = styled.div`
     height: 800px;
@@ -14,6 +12,23 @@ const PageContainer = styled.div`
     margin: 0 auto;
     font-family:'NanumSquareNeo-Variable'; 
 `;
+
+const FriendContainer = styled.div`
+    max-height: 500px;
+    overflow-y: auto;  /* 스크롤 기능 활성화 */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color:  transparent transparent; /* Firefox */
+    &::-webkit-scrollbar {
+        background-color: rgba(241, 180, 187, 0.3); /* 투명도 설정 */
+        border-radius: 10px; /* 선택적으로 테두리 반경 설정 */
+        width: 5px; /* 스크롤바 너비 */
+        height: 3px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(241, 180, 187, 0.7); /* 스크롤바 색상 */
+        border-radius: 10px;
+    }
+`
 
 const Title=styled.div`
     font-size: 35px;
@@ -33,37 +48,26 @@ const TitleContainer = styled.div`
 
 
 const FriendListPage = () => {
-    
+    const [friends, setFriends] = useState(friendData.results);
+    console.log('Friend data:', friends);
     return (
         <PageContainer>
             <TitleContainer>
                 <Title>팔로우 목록</Title>
                 <AddFriendIcon/>
             </TitleContainer>
-            
-            <FriendList 
-                img={userIconPink} 
-                altText={'user1Icon'} 
-                id={'코너톤파이팅'}
-                text={'아자아자아자아자아자'}
-                buttonText={'방문하기'}
-            />
-            
-            <FriendList 
-                img={userIconGreen} 
-                altText={'user2Icon'} 
-                id={'dkfjikn'}
-                text={'hi hi hi hi hi'}
-                buttonText={'방문하기'}
-            />
-            <FriendList 
-                img={userIconBrown} 
-                altText={'user3Icon'} 
-                id={'짱짱'}
-                text={'친구 추가 환영^^'}
-                buttonText={'방문하기'}
-            />
-            
+            <FriendContainer>
+                {friends.map((friend) => (
+                    <FriendList
+                    key={friend.key}
+                    img={friend.img} 
+                    altText={friend.altText} 
+                    id={friend.id}
+                    text={friend.text}
+                    buttonText={'방문하기'}
+                    />
+                ) )}
+            </FriendContainer>
         </PageContainer>
     );
 };
