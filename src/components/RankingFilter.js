@@ -9,16 +9,17 @@ const FilterContainer = styled.div`
     background-color: rgba( 255, 255, 255, 0.3 );
     border-radius: 0 150px 30px 30px;
     text-align: center;
+    font-family:'DNFBitBitv2';
 `
 
 const FilterButton = styled.button`
     background-color: rgba( 255, 255, 255, 0 );
-    width: 150px;
+    width: 230px;
     height: 50px;
     margin: 17px auto;
     color: #FFFFFF;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 22px;
+    
     border: none;
     &:hover {
         color: #132043;

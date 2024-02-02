@@ -13,6 +13,7 @@ const ModalContainer = styled(Modal)`
     justify-content: center;
     text-align: center;
     margin: 0 auto;
+    font-family:'NanumSquareNeo-Variable'; 
 `   
 
 const ModalHeader = styled(Modal.Header)`

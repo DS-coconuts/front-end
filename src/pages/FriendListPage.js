@@ -5,17 +5,19 @@ import userIconPink from "../assets/icons/userIcon_pink.png";
 import userIconGreen from "../assets/icons/userIcon_green.png";
 import userIconBrown from "../assets/icons/userIcon_brown.png";
 import AddFriendIcon from "../components/AddFriendIcon";
+import '../fonts/font.css';
 
 const PageContainer = styled.div`
     height: 800px;
     padding: 150px 500px;
     background: #132043;
     margin: 0 auto;
+    font-family:'NanumSquareNeo-Variable'; 
 `;
 
 const Title=styled.div`
     font-size: 35px;
-   
+    font-family:'DNFBitBitv2';
     color: #F1B4BB;
     justify-content: space-between;
 `

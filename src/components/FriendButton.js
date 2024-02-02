@@ -12,6 +12,7 @@ const ButtonStyle = styled.button`
     background-color: rgba( 255, 255, 255, 0.2 );
     width: 130px;
     height: 50px;
+    font-weight: bold;
     &:hover {
         background-color: rgba( 255, 255, 255, 0.7 );
         font-weight: bold;

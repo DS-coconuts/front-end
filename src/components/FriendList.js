@@ -16,7 +16,6 @@ const FriendContainer = styled.div`
 const ProfileStyle = styled.img`
     width: auto;
     height: 110px;
-    margin-top: 5px;
     padding: 20px;
 `
 

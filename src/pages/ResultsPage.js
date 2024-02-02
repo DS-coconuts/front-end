@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ResultGraph from '../components/ResultGraph';
+import '../fonts/font.css';
 
 const PageContainer = styled.div`
     width: 100%;
@@ -8,17 +9,18 @@ const PageContainer = styled.div`
     padding: 100px;
     background: #132043;
     margin: 0 auto;
+    font-family:'NanumSquareNeo-Variable'; 
 `;
 
 
 const ResultTitle = styled.div`
     color: #FFFFFF;
     font-size: 35px;
-    font-weight: bold;
     text-align: center;
     margin: 0 auto;
     width: 700px;
     padding: 30px;
+    font-family:'DNFBitBitv2';
 `
 
 const ResultBox = styled.div`
@@ -58,7 +60,7 @@ const GraphBox = styled.div`
 
 const CharContent = styled.div`
     margin: 0px 13px;
-    margin-top: 17px;
+    margin-top: 18px;
     padding: 0px 40px;
     width: 200px;
     text-align: left;

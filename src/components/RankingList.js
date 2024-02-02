@@ -41,6 +41,7 @@ const ScoreStyle = styled.div`
 const RankStyle = styled.div`
     font-size: 24px;
     color: #F1B4BB;
+    font-weight: bold;
 `
 
 const RankingList = ({rank, img, altText, id, score}) => {
