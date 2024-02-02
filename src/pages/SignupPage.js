@@ -1,16 +1,219 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
+import Logo from "../img/Logo.svg";
+import ProfileImg from "../img/UserProfileSymbol.svg";
+import IdImg from "../img/IdSymbol.svg";
+import PasswordImg from "../img/PasswordSymbol.svg";
 
 const PageContainer = styled.div`
-    height: 300px;
+  background-color: #132043; /* 원하는 배경색을 여기에 지정하세요 */
+  color: white; /* 텍스트 색상을 조절할 수 있습니다. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; /* 세로 중앙 정렬을 위한 추가 설정 */
+`;
+
+const LogoImg = styled.img`
+  width: 100px; /* 로고의 너비를 조절할 수 있습니다. */
+  height: auto; /* 높이를 자동으로 조절하여 비율을 유지합니다. */
+  margin-bottom: 20px; /* 로고와 텍스트 사이에 여백을 주기 위한 추가 설정 */
+  margin-top: 15px;
+`;
+
+const UserProfileWrapper = styled.div`
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+const UserProfileImg = styled.img`
+  width: auto; /* 로고의 너비를 조절할 수 있습니다. */
+  height: 70px; /* 높이를 자동으로 조절하여 비율을 유지합니다. */
+  margin-bottom: 10px; /* 로고와 텍스트 사이에 여백을 주기 위한 추가 설정 */
+`;
+
+const UserProfileChangeButton = styled.div`
+  width: 100px;
+  height: 20px;
+  border-radius: 15px;
+  background: #f1b4bb;
+  color: #132043;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center; /* 세로 방향에서 중앙 정렬을 위해 추가 */
+  justify-content: center; /* 가로 방향에서 중앙 정렬을 위해 추가 */
+  cursor: pointer;
+`;
+
+const UserInformationWrapper = styled.div`
+  width: 400px;
+  color: #132043;
+`;
+
+const UserIdWrapper = styled.div`
+  height: 50px;
+  border-radius: 15px 15px 0px 0px;
+  border-top: 5px solid #f1b4bb; /* top에만 border 적용 */
+  border-left: 5px solid #f1b4bb; /* left에만 border 적용 */
+  border-right: 5px solid #f1b4bb; /* right에만 border 적용 */
+  background: #ffff;
+  display: flex;
+  align-items: center;
+`;
+
+const UserIdIcon = styled.img`
+  margin-left: 10px;
+  height: auto;
+`;
+
+const UserIdLabel = styled.div`
+  margin-left: 10px; /* 아이콘과 레이블 사이 간격 조절 */
+  font-weight: 600;
+`;
+
+const UserIdInput = styled.input`
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  color: #132043;
+  margin-left: 10px;
+`;
+
+const UserPasswordWrapper = styled.div`
+  height: 50px;
+  background: #ffff;
+  display: flex;
+  align-items: center;
+  border-top: 5px solid #f1b4bb; /* top에만 border 적용 */
+  border-left: 5px solid #f1b4bb; /* left에만 border 적용 */
+  border-right: 5px solid #f1b4bb; /* right에만 border 적용 */
+`;
+
+const UserPasswordIcon = styled.img`
+  margin-left: 10px;
+  height: auto;
+`;
+const UserPasswordLabel = styled.div`
+  margin-left: 10px; /* 아이콘과 레이블 사이 간격 조절 */
+  font-weight: 600;
+`;
+
+const UserPasswordInput = styled.input`
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  color: #132043;
+  margin-left: 10px;
+`;
+
+const UserIntroWrapper = styled.div`
+  height: 80px;
+  border-top: 5px solid #f1b4bb; /* top에만 border 적용 */
+  border-left: 5px solid #f1b4bb; /* left에만 border 적용 */
+  border-right: 5px solid #f1b4bb; /* right에만 border 적용 */
+  background: #fff;
+`;
+
+const UserIntroLabel = styled.div`
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 600;
+`;
+
+const UserIntroInput = styled.input`
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  color: #132043;
+  margin-left: 10px;
+`;
+
+const UserGoalWrapper = styled.div`
+  height: 50px;
+  border-radius: 0px 0px 15px 15px;
+  border: 5px solid #f1b4bb;
+  background: #ffff;
+  display: flex;
+  align-items: center;
+`;
+
+const UserGoalLabel = styled.div`
+  font-size: 16px;
+  font-weight: 600;
+  margin-left: 10px; /* 아이콘과 레이블 사이 간격 조절 */
+`;
+
+const UserGoalInput = styled.input`
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  color: #132043;
+  margin-left: 10px;
+`;
+
+const SignupButton = styled.div`
+  width: 400px;
+  height: 50px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border-radius: 15px;
+  background: #f1b4bb;
+  color: #132043;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 800;
+  display: flex;
+  align-items: center; /* 세로 방향에서 중앙 정렬을 위해 추가 */
+  justify-content: center; /* 가로 방향에서 중앙 정렬을 위해 추가 */
+  cursor: pointer;
 `;
 
 const SignupPage = () => {
-    return (
-        <PageContainer>
-            회원가입 페이지
-        </PageContainer>
-    );
+  return (
+    <PageContainer>
+      <LogoImg src={Logo} alt="Logo" />
+      <UserProfileWrapper>
+        <UserProfileImg src={ProfileImg} alt="ProfileImg" />
+        <UserProfileChangeButton>프로필 사진 변경</UserProfileChangeButton>
+      </UserProfileWrapper>
+      <UserInformationWrapper>
+        <UserIdWrapper>
+          <UserIdIcon src={IdImg} alt="IdImg" />
+          <UserIdLabel>아이디</UserIdLabel>
+          <UserIdInput type="text" placeholder="" />
+        </UserIdWrapper>
+        <UserPasswordWrapper>
+          <UserPasswordIcon src={PasswordImg} alt="PasswordImg" />
+          <UserPasswordLabel>비밀번호</UserPasswordLabel>
+          <UserPasswordInput type="password" placeholder="" />
+        </UserPasswordWrapper>
+        <UserIntroWrapper>
+          <UserIntroLabel>한 줄 소개</UserIntroLabel>
+          <UserIntroInput type="text" placeholder="" />
+        </UserIntroWrapper>
+        <UserGoalWrapper>
+          <UserGoalLabel>목표 타수</UserGoalLabel>
+          <UserGoalInput type="number" placeholder="" />
+        </UserGoalWrapper>
+      </UserInformationWrapper>
+      <SignupButton>회원가입</SignupButton>
+    </PageContainer>
+  );
 };
 
 export default SignupPage;
