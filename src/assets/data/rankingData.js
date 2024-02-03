@@ -1,6 +1,6 @@
 import userIconPink from "../icons/userIcon_pink.png"
-import userIconBrown from "../icons/userIcon_green.png";
-import userIconGreen from "../icons/userIcon_brown.png";
+import userIconBrown from "../icons/userIcon_brown.png";
+import userIconGreen from "../icons/userIcon_green.png";
 
 
 export const rankingData = {
@@ -194,7 +194,8 @@ export const rankingData = {
             },          
             cpm: "280",
             language: "JAVASCRIPT"
-        },{
+        },
+        {
             scoreId: 20,
             user: {
                 userId: 20,
@@ -202,6 +203,16 @@ export const rankingData = {
                 image: userIconBrown
             },          
             cpm: "390",
+            language: "JAVASCRIPT"
+        },
+        {
+            scoreId: 21,
+            user: {
+                userId: 21,
+                loginId: "dzeknd",
+                image: userIconBrown
+            },          
+            cpm: "430",
             language: "JAVASCRIPT"
         },
     

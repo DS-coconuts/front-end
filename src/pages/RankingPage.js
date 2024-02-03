@@ -88,7 +88,8 @@ const RankingPage = () => {
                     </Subtitle>
                 {sortedRanks
                      .filter(rank => !selectedLanguage || rank.language === selectedLanguage)
-                    .map((rank, index) => (
+                     .slice(0, 4)
+                     .map((rank, index) => (
                     <RankingList
                     key={rank.scoreId}
                     rank={`${(index + 1)}${getOrdinalSuffix(index + 1)}`}
