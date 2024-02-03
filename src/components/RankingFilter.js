@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const FilterContainer = styled.div`
@@ -35,21 +35,25 @@ const RankingFilter = ({handleCategoryFilter}) => {
     let button = ["PYTHON", "C", "JAVA", "HTML", "JAVASCRIPT"];
     const [btnActive, setBtnActive] = useState("");
     
-    const toggleActive = (e) => {
-        // const category = e.target.value === "0" ? "" : button[e.target.value];
-        setBtnActive(e.target.value);
-        // handleCategoryFilter(category);
+    useEffect(() => {
+        setBtnActive("PYTHON");
+        handleCategoryFilter("PYTHON");
+    }, []);
+
+    const toggleActive = (language) => {
+        setBtnActive(language);
+        handleCategoryFilter(language);
     }
+
 
     return (
         <FilterContainer>
             {button.map((item, idx) => (
-                 <FilterButton
-                    key={idx}
-                    value={idx}
-                    className={`btn${idx == btnActive ? " active" : ""}`}
-                     onClick={toggleActive}
-                 >{item}</FilterButton>
+                <FilterButton
+                key={idx}
+                className={`btn${item === btnActive ? " active" : ""}`}
+                onClick={() => toggleActive(item)}
+            >{item}</FilterButton>
             ))}
         </FilterContainer>
     );
