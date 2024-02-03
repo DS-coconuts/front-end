@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import Logo from "../assets/icons/Logo.svg";
 import IdImg from "../assets/icons/IdSymbol.svg";
 import PasswordImg from "../assets/icons/PasswordSymbol.svg";
 
 const PageContainer = styled.div`
+  font-family: "NanumSquareNeo";
   background-color: #132043;
   display: flex;
   align-items: center;
@@ -94,12 +97,13 @@ const LoginButton = styled.div`
   background: #f1b4bb;
   color: #132043;
   text-align: center;
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 25px;
+
   display: flex;
   align-items: center; /* 세로 방향에서 중앙 정렬을 위해 추가 */
   justify-content: center; /* 가로 방향에서 중앙 정렬을 위해 추가 */
   cursor: pointer;
+  font-family: "bitbit";
 `;
 const DivisionWrapper = styled.div`
   margin-top: 15px;
@@ -111,18 +115,19 @@ const DivisionWrapper = styled.div`
   flex-direction: row; /* 자식 요소들을 가로로 정렬 */
 `;
 const DivisionLiteral = styled.div`
-  font-weight: 600;
   color: #f1b4bb;
   font-size: 15px;
   margin-left: 5px;
   margin-right: 5px;
+  font-family: "bitbit";
 `;
 const DivisionLine = styled.div`
   width: 180px;
   height: 3px;
   background: #f1b4bb;
 `;
-const SignupButton = styled.div`
+const SignupButton = styled(Link)`
+  text-decoration: none;
   width: 400px;
   height: 50px;
   margin-bottom: 30px;
@@ -130,40 +135,84 @@ const SignupButton = styled.div`
   background: #f1b4bb;
   color: #132043;
   text-align: center;
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 25px;
   display: flex;
   align-items: center; /* 세로 방향에서 중앙 정렬을 위해 추가 */
   justify-content: center; /* 가로 방향에서 중앙 정렬을 위해 추가 */
   cursor: pointer;
+  font-family: "bitbit";
 `;
 
-const LoginPage = () => {
+export default function LoginPage() {
+  const [loginInfo, setLoginInfo] = useState({
+    loginId: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setLoginInfo({
+      ...loginInfo,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // const response = await axios.post("/api/users/login", loginInfo);
+      // console.log(response);
+      // if (response.data.message === "로그인을 성공했습니다.") {
+      //   localStorage.setItem("loginId", response.data.loginId);
+      const mockUserData = {
+        loginId: loginInfo.loginId,
+        password: loginInfo.password,
+      };
+      console.log(mockUserData);
+      alert("로그인 성공!");
+      window.location.href = `/`;
+      // } else {
+      //   alert("아이디 혹은 비밀번호가 틀렸습니다.");
+      // }
+    } catch (error) {
+      console.error(error);
+      alert("서버 에러");
+    }
+  };
+
   return (
     <PageContainer>
       <LogoImg src={Logo} alt="Logo" />
-      <UserInformationWrapper>
+      <UserInformationWrapper onSubmit={handleSubmit}>
         <UserIdWrapper>
           <UserIdIcon src={IdImg} alt="IdImg" />
           <UserIdLabel>아이디</UserIdLabel>
-          <UserIdInput type="text" placeholder="" />
+          <UserIdInput
+            type="text"
+            placeholder=""
+            name="loginId"
+            onChange={handleChange}
+          />
         </UserIdWrapper>
         <UserPasswordWrapper>
           <UserPasswordIcon src={PasswordImg} alt="PasswordImg" />
           <UserPasswordLabel>비밀번호</UserPasswordLabel>
-          <UserPasswordInput type="password" placeholder="" />
+          <UserPasswordInput
+            type="password"
+            name="password"
+            placeholder=""
+            onChange={handleChange}
+          />
         </UserPasswordWrapper>
       </UserInformationWrapper>
       <LoginWrapper>
-        <LoginButton>로그인</LoginButton>
+        <LoginButton onClick={handleSubmit}>로그인</LoginButton>
         <DivisionWrapper>
           <DivisionLine />
           <DivisionLiteral>또는</DivisionLiteral>
           <DivisionLine />
         </DivisionWrapper>
-        <SignupButton>회원가입</SignupButton>
+        <SignupButton to="/signup">회원가입</SignupButton>
       </LoginWrapper>
     </PageContainer>
   );
-};
-export default LoginPage;
+}
