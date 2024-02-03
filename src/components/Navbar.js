@@ -30,7 +30,7 @@ const NavItem = styled.p`
 `;
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState({
     loginId: "",
     image: userIcon,
