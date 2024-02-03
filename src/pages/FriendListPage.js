@@ -2,15 +2,14 @@ import React,{useState} from 'react';
 import styled from 'styled-components';
 import FriendList from '../components/FriendList';
 import AddFriendIcon from "../components/AddFriendIcon";
-import '../fonts/index.css';
-import { friendData } from '../friendData';
+import { friendData } from '../assets/data/friendData';
 
 const PageContainer = styled.div`
     height: 800px;
     padding: 150px 500px;
     background: #132043;
     margin: 0 auto;
-    font-family:'NanumSquareNeo-Variable'; 
+    font-family:'NanumSquareNeo'; 
 
     @media (max-width: 1500px) {
         padding: 150px 100px; /* 작은 화면일 때 패딩값 변경 */
@@ -36,7 +35,7 @@ const FriendContainer = styled.div`
 
 const Title=styled.div`
     font-size: 35px;
-    font-family:'DNFBitBitv2';
+    font-family:'bitbit';
     color: #F1B4BB;
     justify-content: center;
 `

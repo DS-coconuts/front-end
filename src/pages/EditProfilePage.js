@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import ProfileImg from "../img/UserProfileSymbol.svg";
+import ProfileImg from "../assets/icons/UserProfileSymbol.svg";
 
 const PageContainer = styled.div`
   background-color: #132043;

@@ -10,24 +10,24 @@ const PageContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 700px;
+  height: 100%;
 `;
 
 const Box = styled.div`
   flex-direction: column;
   display: flex;
   align-items: center;
-  width: 70%;
-  height: 100%;
+  width: 800px;
+  height: 500px;
   border-radius: 20px;
-  background-color: #313D5B;
+  background-color: rgba( 255, 255, 255, 0.3 );
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
   padding: 10px;
 `;
 
 const TextLink = styled(Link)`
   text-decoration: none;
-  font-size: 40px;
+  font-size: 21px;
   color: #f1b4bb;
   font-family: 'bitbit';
   align-self: flex-end;
@@ -36,26 +36,21 @@ const TextLink = styled(Link)`
 
 const GoalButton = styled.button`
   padding: 10px 20px;
-  width: 600px;
-  height: 80px;
-  margin-top: 30px;
   border: none;
   border-radius: 15px;
   background-color: #1F4172;
   color: #f1b4bb;
-  font-size: 40px;
+  font-size: 30px;
   font-family: 'bitbit';
 `;
 
 const FriendButton = styled.button`
-  padding: 10px 20px;
-  width: 220px;
-  height: 80px;
+  padding: 3px 20px;
   border: none;
   border-radius: 15px;
   background-color: #49546E;
   color: #f1b4bb;
-  font-size: 40px;
+  font-size: 30px;
   font-family: 'bitbit';
 `;
 
@@ -67,7 +62,6 @@ const FriendLink = styled(Link)`
 const ProfilBox = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
 `
 
@@ -76,29 +70,37 @@ const ProfilText = styled.div`
   flex-direction: column;
   align-items: flex-start;
   margin: 0px 0px 0px 30px;
-  width: 600px;
+  width: 400px;
 `
 
 const InfoTitleText = styled.p`
-  font-size: 100px;
+  font-size: 42px;
   color: #fff;
   font-family: 'bitbit';
   margin: 0px;
 `;
 
 const InfoText = styled.p`
-  font-size: 32px;
+  font-size: 24px;
   color: #fff;
   font-family: 'NanumSquareNeo';
   margin: 0px 0px 10px 0px;
   text-align: left;
 `;
 
-const FnText = styled.p`
+const FnTitleText = styled.p`
   margin: 0px;
-  font-size: 40px;
+  font-size: 24px;
   color: #f1b4bb;
   font-family: 'bitbit';
+`;
+
+const FnText = styled.p`
+  margin: 0px;
+  font-size: 18px;
+  color: #fff;
+  font-family: 'NanumSquareNeo';
+  text-align: left;
 `;
 
 const FnTextBox = styled.div`
@@ -108,7 +110,7 @@ const FnTextBox = styled.div`
 
 const HistoryButton = styled.button`
   padding: 10px 20px;
-  width: 970px;
+  width: 730px;
   border: none;
   border-radius: 15px;
   background-color: #49546E;
@@ -120,7 +122,7 @@ const MyPage = () => {
       <Box>
         <TextLink to="/editprofile">편집</TextLink>
         <ProfilBox>
-          <img src={userIcon} alt={'userIcon'} style={{ width: 'auto', height: '350px'}} />
+          <img src={userIcon} alt={'userIcon'} style={{ width: 'auto', height: '230px'}} />
           <ProfilText>
             <InfoTitleText>abc</InfoTitleText>
             <InfoText>안녕하세요. 반갑습니다.</InfoText>
@@ -133,11 +135,11 @@ const MyPage = () => {
         <Link to="/history">
           <HistoryButton>
             <FnTextBox>
-              <FnText>C</FnText>
-              <FnText>기록 더보기</FnText>
+              <FnTitleText>C</FnTitleText>
+              <FnTitleText>기록 더보기</FnTitleText>
             </FnTextBox>
-            <InfoText>달성 타수: 530타</InfoText>
-            <InfoText>날짜: 2024년 1월 26일</InfoText>
+            <FnText>달성 타수: 530타</FnText>
+            <FnText>날짜: 2024년 1월 26일</FnText>
           </HistoryButton>
         </Link>
       </Box>
