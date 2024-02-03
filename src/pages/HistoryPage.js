@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
+import axios from "axios";
 
 import TypingHistory from '../components/TypingHistory';
 
@@ -64,6 +65,22 @@ const dummydata = [
 ]
 
 const HistoryPage = () => {
+  // const [userHistory, setUserHistory] = useState([]);
+
+  // axios.get(`http://localhost:8080/api/users/${1}/scores`)
+  // .then(response => {
+  //   console.log('Result sent to server:', response.data);
+  //   // const newScoreItem = {
+  //   //   scoreId: response.data.scoreId,
+  //   //   cpm: response.data.cpm,
+  //   //   createdAt: response.data.createdAt,
+  //   //   language: response.data.language,
+  //   // };
+  //   // const newUserHistory = [...userHistory, newScoreItem];
+  //   // setUserHistory(newUserHistory);
+  // })
+  // .catch(error => console.error('Error:', error));
+
   return (
     <PageContainer>
       <Box>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import logo_C from '../assets/icons/logo_C.png';
 import logo_HTML from '../assets/icons/logo_HTML.png';
 import logo_python from '../assets/icons/logo_python.png';
-import logo_JAVA from '../assets/icons/logo_JAVA.png';
+import logo_Java from '../assets/icons/logo_JAVA.png';
 import logo_JavaScript from '../assets/icons/logo_JavaScript.png';
 
 const PageContainer = styled.div`
@@ -65,25 +65,33 @@ const MainPage = () => {
       <SubTitleText>연습하고 싶은 언어를 선택하세요.</SubTitleText>
 
       <LanButtons>
-        <Link to="/typing">
+        <Link to="/typing/Python">
           <LanButton>
             <img src={logo_python} alt={'logo_python'} style={{ width: 'auto', height: '40px'}} />
           </LanButton>
         </Link>
-        <LanButton>
-          <img src={logo_JAVA} alt={'logo_JAVA'} style={{ width: 'auto', height: '40px'}} />
-        </LanButton>
-        <LanButton>
-          <img src={logo_C} alt={'logo_C'} style={{ width: 'auto', height: '40px'}} />
-        </LanButton>
+        <Link to="/typing/Java">
+          <LanButton>
+            <img src={logo_Java} alt={'logo_Java'} style={{ width: 'auto', height: '40px'}} />
+          </LanButton>
+        </Link>
+        <Link to="/typing/C">
+          <LanButton>
+            <img src={logo_C} alt={'logo_C'} style={{ width: 'auto', height: '40px'}} />
+          </LanButton>
+        </Link>
       </LanButtons>
       <LanButtons>
-        <LanButton>
-          <img src={logo_HTML} alt={'logo_HTML'} style={{ width: 'auto', height: '40px', marginTop: '5px'}} />
-        </LanButton>
-        <LanButton>
-          <img src={logo_JavaScript} alt={'logo_JavaScript'} style={{ width: 'auto', height: '40px'}} />
-        </LanButton>
+        <Link to="/typing/HTML">
+          <LanButton>
+            <img src={logo_HTML} alt={'logo_HTML'} style={{ width: 'auto', height: '40px', marginTop: '5px'}} />
+          </LanButton>
+        </Link>
+        <Link to="/typing/JavaScript">
+          <LanButton>
+            <img src={logo_JavaScript} alt={'logo_JavaScript'} style={{ width: 'auto', height: '40px'}} />
+          </LanButton>
+        </Link>
       </LanButtons>
         
       <LoginTextLink to="/login">

@@ -18,7 +18,7 @@ function App() {
       <Route path="/signup" element={<SignupPage/>} />
       <Route path="/login" element={<LoginPage/>} />
       <Route path="/ranking" element={<RankingPage/>} />
-      <Route path="/typing" element={<TypingPage/>} />
+      <Route path="/typing/:value" element={<TypingPage/>} />
       <Route path="/results" element={<ResultsPage/>} />
       <Route path="/my" element={<MyPage/>} />
       <Route path="/history" element={<HistoryPage/>} />
