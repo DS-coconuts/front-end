@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import Logo from "../assets/icons/Logo.svg";
 import ProfileImg from "../assets/icons/UserProfileSymbol.svg";
@@ -12,6 +13,7 @@ const PageContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column; /* 세로 중앙 정렬을 위한 추가 설정 */
+  font-family: "NanumSquareNeo";
 `;
 
 const LogoImg = styled.img`
@@ -35,19 +37,23 @@ const UserProfileImg = styled.img`
   margin-bottom: 10px; /* 로고와 텍스트 사이에 여백을 주기 위한 추가 설정 */
 `;
 
-const UserProfileChangeButton = styled.div`
+const UserProfileChangeButton = styled.label`
   width: 100px;
-  height: 20px;
+  height: 22px;
   border-radius: 15px;
   background: #f1b4bb;
   color: #132043;
   text-align: center;
-  font-size: 10px;
-  font-weight: 600;
+  font-size: 13px;
   display: flex;
   align-items: center; /* 세로 방향에서 중앙 정렬을 위해 추가 */
   justify-content: center; /* 가로 방향에서 중앙 정렬을 위해 추가 */
   cursor: pointer;
+  font-family: "bitbit";
+`;
+
+const HiddenFileInput = styled.input`
+  display: none;
 `;
 
 const UserInformationWrapper = styled.div`
@@ -175,45 +181,124 @@ const SignupButton = styled.div`
   background: #f1b4bb;
   color: #132043;
   text-align: center;
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 25px;
   display: flex;
   align-items: center; /* 세로 방향에서 중앙 정렬을 위해 추가 */
   justify-content: center; /* 가로 방향에서 중앙 정렬을 위해 추가 */
   cursor: pointer;
+  font-family: "bitbit";
 `;
 
-const SignupPage = () => {
+export default function SignupPage() {
+  const [selectedImage, setSelectedImage] = useState(ProfileImg);
+  const [info, setInfo] = useState({
+    loginId: "",
+    password: "",
+    introduction: "",
+    goalcpm: "",
+    image: selectedImage,
+  });
+
+  const mockUserData = {
+    loginId: info.loginId,
+    password: info.password,
+    introduction: info.introduction,
+    goalcpm: info.goalcpm,
+    image: info.image,
+  };
+
+  const handleChange = (e) => {
+    setInfo({
+      ...info,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedImage(file);
+    setInfo({
+      ...info,
+      image: URL.createObjectURL(file),
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // const response = await axios.post("/api/users/register", {
+      //   loginId: info.loginId,
+      //   password: info.password,
+      //   introduction: info.introduction,
+      //   goalcpm: info.goalcpm,
+      //   image: info.image,
+      // });
+      // console.log(response);
+      // if (response.data.message === "회원가입 성공")
+      console.log(mockUserData);
+      alert("회원가입 성공!");
+      window.location.href = `/`;
+    } catch (error) {
+      console.error(error);
+      alert("회원가입에 실패했습니다.");
+    }
+  };
+
   return (
     <PageContainer>
       <LogoImg src={Logo} alt="Logo" />
-      <UserProfileWrapper>
-        <UserProfileImg src={ProfileImg} alt="ProfileImg" />
-        <UserProfileChangeButton>프로필 사진 변경</UserProfileChangeButton>
+      <UserProfileWrapper onSubmit={handleSubmit}>
+        <UserProfileImg src={info.image || ProfileImg} alt="ProfileImg" />
+        <UserProfileChangeButton>
+          프로필 사진 변경
+          <HiddenFileInput
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
+        </UserProfileChangeButton>
       </UserProfileWrapper>
       <UserInformationWrapper>
         <UserIdWrapper>
           <UserIdIcon src={IdImg} alt="IdImg" />
           <UserIdLabel>아이디</UserIdLabel>
-          <UserIdInput type="text" placeholder="" />
+          <UserIdInput
+            type="text"
+            placeholder=""
+            name="loginId"
+            onChange={handleChange}
+          />
         </UserIdWrapper>
         <UserPasswordWrapper>
           <UserPasswordIcon src={PasswordImg} alt="PasswordImg" />
           <UserPasswordLabel>비밀번호</UserPasswordLabel>
-          <UserPasswordInput type="password" placeholder="" />
+          <UserPasswordInput
+            type="password"
+            placeholder=""
+            name="password"
+            onChange={handleChange}
+          />
         </UserPasswordWrapper>
         <UserIntroWrapper>
           <UserIntroLabel>한 줄 소개</UserIntroLabel>
-          <UserIntroInput type="text" placeholder="" />
+          <UserIntroInput
+            type="text"
+            placeholder=""
+            name="introduction"
+            onChange={handleChange}
+          />
         </UserIntroWrapper>
         <UserGoalWrapper>
           <UserGoalLabel>목표 타수</UserGoalLabel>
-          <UserGoalInput type="number" placeholder="" />
+          <UserGoalInput
+            type="text"
+            placeholder=""
+            name="goalcpm"
+            onChange={handleChange}
+          />
         </UserGoalWrapper>
       </UserInformationWrapper>
-      <SignupButton>회원가입</SignupButton>
+      <SignupButton onClick={handleSubmit}>회원가입</SignupButton>
     </PageContainer>
   );
-};
-
-export default SignupPage;
+}
