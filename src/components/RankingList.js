@@ -4,7 +4,7 @@ import styled from "styled-components"
 const RankContainer = styled.div`
     width: 90%;
     height: 80px;
-    padding: 20px 70px;
+    padding: 20px 60px;
     margin: 20px auto;
     border-radius: 30px 0 30px 0;
     background-color: rgba( 31, 65, 114, 0.7 );
@@ -35,6 +35,7 @@ const IdStyle = styled.div`
 
 const ScoreStyle = styled.div`
     font-size: 24px;
+    font-weight: bold;
 `
 
 const RankStyle = styled.div`
@@ -54,6 +55,7 @@ const RankingList = ({rank, img, altText, id, score}) => {
                 <IdStyle>{id}</IdStyle> 
             </InfoStyle>
             <ScoreStyle>{score}</ScoreStyle>
+           
         </RankContainer>
         
     )

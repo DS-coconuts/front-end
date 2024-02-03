@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import RankingList from '../components/RankingList';
 import userIconPink from "../assets/icons/userIcon_pink.png";
@@ -61,28 +61,40 @@ const getOrdinalSuffix = (rank) => {
 
 const RankingPage = () => {
     const [rankings, setRankings] = useState(rankingData.results);
+    const [selectedLanguage, setSelectedLanguage] = useState("");
+    
+    useEffect(() => {
+        setSelectedLanguage("PYTHON");
+    }, []);
+
+    console.log("selected language: ", selectedLanguage);
     console.log("ranking data: ", rankings);
     const sortedRanks = rankings.sort((a, b) => parseInt(b.cpm) - parseInt(a.cpm));
     
+    const handleCategoryFilter = (language) => {
+        setSelectedLanguage(language);
+    }
+
     return (
         <PageContainer>
              <RankTitle>RANKING</RankTitle>
              <RankContent>
-                <RankingFilter />
+                <RankingFilter handleCategoryFilter={handleCategoryFilter}/>
                 <RankWrapper>
                     <Subtitle>
                         <div>Rank</div>
                         <div>Name</div>
                         <div>Score</div>
                     </Subtitle>
-                {sortedRanks.map((rank, index) => (
+                {sortedRanks
+                     .filter(rank => !selectedLanguage || rank.language === selectedLanguage)
+                    .map((rank, index) => (
                     <RankingList
                     key={rank.scoreId}
                     rank={`${(index + 1)}${getOrdinalSuffix(index + 1)}`}
                     img={rank.user.image}
                     id={rank.user.loginId}
                     score={rank.cpm}
-                    lang={rank.language}
                     />
                 ) )}
             </RankWrapper>
