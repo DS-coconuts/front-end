@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import RankingList from '../components/RankingList';
 import userIconPink from "../assets/icons/userIcon_pink.png";
 import userIconGreen from "../assets/icons/userIcon_green.png";
 import userIconBrown from "../assets/icons/userIcon_brown.png";
 import RankingFilter from '../components/RankingFilter';
+import { rankingData } from "../assets/data/rankingData";
 
 const PageContainer = styled.div`
     width: 100%;
@@ -52,7 +53,17 @@ const Subtitle = styled.div`
     font-family:'bitbit';
 `
 
+const getOrdinalSuffix = (rank) => {
+    const suffixes = ["th", "st", "nd", "rd"];
+    const v = rank % 100;
+    return (suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0]);
+}
+
 const RankingPage = () => {
+    const [rankings, setRankings] = useState(rankingData.results);
+    console.log("ranking data: ", rankings);
+    const sortedRanks = rankings.sort((a, b) => parseInt(b.cpm) - parseInt(a.cpm));
+    
     return (
         <PageContainer>
              <RankTitle>RANKING</RankTitle>
@@ -64,34 +75,16 @@ const RankingPage = () => {
                         <div>Name</div>
                         <div>Score</div>
                     </Subtitle>
-                <RankingList 
-                    rank={'1st'}
-                    img={userIconBrown} 
-                    altText={'user3Icon'} 
-                    id={'짱짱'}
-                    score={'600'}
-                />
-             <RankingList 
-                rank={'2nd'}
-                img={userIconGreen} 
-                altText={'user2Icon'} 
-                id={'dkfjikn'}
-                score={'560'}
-            />
-             <RankingList 
-                rank={'3rd'}
-                img={userIconPink} 
-                altText={'user1Icon'} 
-                id={'홍길동'}
-                score={'350'}
-            />
-             <RankingList 
-                rank={'4th'}
-                img={userIconBrown} 
-                altText={'user4Icon'} 
-                id={'oekxn'}
-                score={'270'}
-            />
+                {sortedRanks.map((rank, index) => (
+                    <RankingList
+                    key={rank.scoreId}
+                    rank={`${(index + 1)}${getOrdinalSuffix(index + 1)}`}
+                    img={rank.user.image}
+                    id={rank.user.loginId}
+                    score={rank.cpm}
+                    lang={rank.language}
+                    />
+                ) )}
             </RankWrapper>
             </RankContent>
         </PageContainer>

@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components"
 
-
 const RankContainer = styled.div`
     width: 90%;
     height: 80px;
@@ -46,6 +45,7 @@ const RankStyle = styled.div`
 
 const RankingList = ({rank, img, altText, id, score}) => {
     
+
     return (
         <RankContainer>
             <RankStyle>{rank}</RankStyle>
