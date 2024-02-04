@@ -49,6 +49,10 @@ const LanButton = styled.button`
   border-radius: 20px;
   background-color: #fff;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+  &:hover {
+    background-color: #F1B4BB;
+    transition: 0.5s;
+  }
 `;
 
 const LanButtons = styled.div`
@@ -67,29 +71,29 @@ const MainPage = () => {
       <LanButtons>
         <Link to="/typing/Python">
           <LanButton>
-            <img src={logo_python} alt={'logo_python'} style={{ width: 'auto', height: '40px'}} />
+            <img src={logo_python} alt={'logo_python'} style={{ width: 'auto', height: '40px', marginTop: '5px'}} />
           </LanButton>
         </Link>
         <Link to="/typing/Java">
           <LanButton>
-            <img src={logo_Java} alt={'logo_Java'} style={{ width: 'auto', height: '40px'}} />
+            <img src={logo_Java} alt={'logo_Java'} style={{ width: 'auto', height: '45px', marginTop: '-2px'}} />
           </LanButton>
         </Link>
         <Link to="/typing/C">
           <LanButton>
-            <img src={logo_C} alt={'logo_C'} style={{ width: 'auto', height: '40px'}} />
+            <img src={logo_C} alt={'logo_C'} style={{ width: 'auto', height: '45px', marginTop: '-2px'}} />
           </LanButton>
         </Link>
       </LanButtons>
       <LanButtons>
         <Link to="/typing/HTML">
           <LanButton>
-            <img src={logo_HTML} alt={'logo_HTML'} style={{ width: 'auto', height: '40px', marginTop: '5px'}} />
+            <img src={logo_HTML} alt={'logo_HTML'} style={{ width: 'auto', height: '45px', marginTop: '-2px'}} />
           </LanButton>
         </Link>
         <Link to="/typing/JavaScript">
           <LanButton>
-            <img src={logo_JavaScript} alt={'logo_JavaScript'} style={{ width: 'auto', height: '40px'}} />
+            <img src={logo_JavaScript} alt={'logo_JavaScript'} style={{ width: 'auto', height: '45px', marginTop: '-2px'}} />
           </LanButton>
         </Link>
       </LanButtons>

@@ -21,10 +21,10 @@ const ButtonWithIcon = ({ icon: Icon, onClick }) => {
     );
 };
 
-const ResultIcon = ({ icon }) => {
+const ResultIcon = ({ icon, onClick }) => {
     return (
         <>
-            <ButtonWithIcon icon={icon} />
+            <ButtonWithIcon icon={icon} onClick={onClick} />
         </>
     );
 };
