@@ -50,6 +50,10 @@ const LanButton = styled.button`
   border-radius: 20px;
   background-color: #fff;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+  &:hover {
+    background-color: #f1b4bb;
+    transition: 0.5s;
+  }
 `;
 
 const LanButtons = styled.div`
@@ -72,7 +76,7 @@ const MainPage = () => {
             <img
               src={logo_python}
               alt={"logo_python"}
-              style={{ width: "auto", height: "40px" }}
+              style={{ width: "auto", height: "40px", marginTop: "5px" }}
             />
           </LanButton>
         </Link>
@@ -81,7 +85,7 @@ const MainPage = () => {
             <img
               src={logo_Java}
               alt={"logo_Java"}
-              style={{ width: "auto", height: "40px" }}
+              style={{ width: "auto", height: "45px", marginTop: "-2px" }}
             />
           </LanButton>
         </Link>
@@ -90,7 +94,7 @@ const MainPage = () => {
             <img
               src={logo_C}
               alt={"logo_C"}
-              style={{ width: "auto", height: "40px" }}
+              style={{ width: "auto", height: "45px", marginTop: "-2px" }}
             />
           </LanButton>
         </Link>
@@ -101,7 +105,7 @@ const MainPage = () => {
             <img
               src={logo_HTML}
               alt={"logo_HTML"}
-              style={{ width: "auto", height: "40px", marginTop: "5px" }}
+              style={{ width: "auto", height: "45px", marginTop: "-2px" }}
             />
           </LanButton>
         </Link>
@@ -110,7 +114,7 @@ const MainPage = () => {
             <img
               src={logo_JavaScript}
               alt={"logo_JavaScript"}
-              style={{ width: "auto", height: "40px" }}
+              style={{ width: "auto", height: "45px", marginTop: "-2px" }}
             />
           </LanButton>
         </Link>
