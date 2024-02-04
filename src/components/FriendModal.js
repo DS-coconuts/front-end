@@ -53,6 +53,7 @@ const FriendContainer = styled.div`
 
 
 const FriendModal = (props) => {
+  
     const [friends, setFriends] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
    

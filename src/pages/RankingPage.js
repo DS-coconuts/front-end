@@ -61,9 +61,7 @@ const getOrdinalSuffix = (rank) => {
 }
 
 const RankingPage = () => {
-    // const [rankings, setRankings] = useState(rankingData.results);
     const [rankings, setRankings] = useState([]);
-    // const [selectedLanguage, setSelectedLanguage] = useState("");
     const [selectedLanguage, setSelectedLanguage] = useState("PYTHON");
 
     
