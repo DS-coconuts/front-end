@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
-import userIcon from "../assets/icons/userIcon_pink.png";
+import userIcon from "../assets/icons/userIcon_green.png";
 
 const PageContainer = styled.div`
   background-color: #132043;

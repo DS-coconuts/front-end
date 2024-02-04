@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components"
-import defaultImage from '../assets/icons/userIcon_pink.png';
+import defaultImage from '../assets/icons/userIcon_green.png';
 
 const RankContainer = styled.div`
     width: 90%;

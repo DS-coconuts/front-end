@@ -112,7 +112,8 @@ const addFriend = async (friendLoginId) => {
     
      alert("친구 추가 성공");
      searchUsers(searchTerm);
-
+     window.location.reload();
+     
   } catch (error) {
     console.error('친구 추가 실패:', error);
     // TODO: 친구 추가 실패 시 어떤 동작을 할지 작성
