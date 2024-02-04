@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components"
 import FriendButton from "./FriendButton";
-
+import defaultImage from '../assets/icons/userIcon_pink.png';
 import { Link } from 'react-router-dom';
 
 const FriendContainer = styled.div`
@@ -34,6 +34,8 @@ const IdStyle = styled.div`
     margin: 0 0 7px 0;
 `
 const FriendList = ({img, altText, id, text, buttonText, linkTo, onAddFriend  }) => {
+
+   
     const handleButtonClick = () => {
         if (buttonText === "방문하기") {
           // "방문하기" 버튼 클릭 시 이동
@@ -45,7 +47,7 @@ const FriendList = ({img, altText, id, text, buttonText, linkTo, onAddFriend  })
       };
     return (
         <FriendContainer>
-            <ProfileStyle src={img} alt={altText} />
+            <ProfileStyle src={img || defaultImage} alt={altText} />
             <InfoStyle>
                 <IdStyle>{id}</IdStyle> 
                 <div>{text}</div>

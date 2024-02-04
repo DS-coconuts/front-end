@@ -74,11 +74,7 @@ const FriendListPage = () => {
         }
       }, [storedUserId]);
 
-    //   const handleVisitFriend = (friendId) => {
-    //     // 방문하기 버튼 클릭 시 실행되는 함수
-    //     // 원하는 라우팅 처리를 여기에 추가
-    //     navigate(`/my/${friendId}`); // friendId에 따라 동적 라우팅
-    // };
+  
 
     return (
         <PageContainer>
