@@ -196,7 +196,7 @@ export default function SignupPage() {
     password: "",
     introduction: "",
     goalCpm: 0,
-    // image: selectedImage,
+    // image: ProfileImg,
   });
 
   const handleChange = (e) => {

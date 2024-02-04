@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components"
+import defaultImage from '../assets/icons/userIcon_pink.png';
 
 const RankContainer = styled.div`
     width: 90%;
@@ -51,8 +52,8 @@ const RankingList = ({rank, img, altText, id, score}) => {
         <RankContainer>
             <RankStyle>{rank}</RankStyle>
             <InfoStyle>
-                {img ? <ProfileStyle src={img} alt={altText} /> : <div>No Image</div>}
-                <IdStyle>{id}</IdStyle> 
+            <ProfileStyle src={img || defaultImage} alt={altText} />
+            <IdStyle>{id}</IdStyle> 
             </InfoStyle>
             <ScoreStyle>{score}</ScoreStyle>
            

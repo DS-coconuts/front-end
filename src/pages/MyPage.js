@@ -213,11 +213,11 @@ export default function MyPage() {
             <GoalButton>목표 타수: {userData.goalCpm}</GoalButton>
           </ProfilText>
         </ProfilBox>
-        <FriendLink to="/friendlist">
+        <FriendLink to={isCurrentUser ? "/friendlist" : "#"}>
           <FriendButton>팔로우 목록</FriendButton>
         </FriendLink>
         {scoreData ? (
-          <Link to="/history">
+          <Link to={isCurrentUser ? "/history" : "#"}>
             <HistoryButton>
               <FnTextBox>
                 <FnTitleText>{scoreData.language}</FnTitleText>
