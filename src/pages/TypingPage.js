@@ -1,5 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from "axios";
 
 import { VscDebugRestart } from "react-icons/vsc";
 import ResultIcon from '../components/ResultIcon';
@@ -53,24 +55,34 @@ const TopBox = styled.div`
   margin-top: 10px;
 `;
 
-const TextInput = styled.input`
-  width: 970px;
-  height: 20px;
-  outline: none;
-  font-size: 16px;
-  color: #132043;
-  border: none;
-  // border-bottom: 3px solid #f1b4bb;
-  // background-color: transparent;
-  background-color: #fff;
+const TextCode = styled.pre`
   font-family: 'D2 coding';
+  font-size: 16px;
+  margin: 0;
+  color: #aaa;
+  position: relative;
+  white-space: pre-wrap; /* 텍스트 줄 바꿈 처리 */
+  word-wrap: break-word;
+  overflow: hidden;
+
 `;
 
-const TextCode = styled.p`
+const TextInput = styled.textarea`
   font-family: 'D2 coding';
-  margin: 0px;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-size: 16px;
   color: #fff;
-`
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  padding: 0px;
+  resize: none;
+  background: rgba(241, 180, 187, 0.0);
+`;
 
 const TextBox = styled.div`
   margin: 5px;
@@ -86,34 +98,165 @@ const IconBox = styled.div`
 `
 
 const TypingPage = () => {
-  const exampleSentences = [
-    'namespace System.Web.Razor.Parser',
-    '      public partial class CSharpCodeParser : TokenizerBackedParser<CSharpTokenizer,  CSharpSymbol, CSharpSymbolType>',
-    '      {',
-    '          internal static readonly int UsingKeywordLength = 5;',
-    '          internal static ISet<string> DefaultKeywords = new HashSet<string>()',
-    '          {',
-    '               “if”,',
-    '         }',
-    '        public void YourMethodAfterUsingKeyword()',
-  ];
+  const { value } = useParams();
+  const languageString = typeof value === 'object' ? value.language.toString() : value;
+  const navigate = useNavigate();
+
+  const [codeData, setCodeData] = useState(null);
+  const [userInput, setUserInput] = useState('');
+  const [timer, setTimer] = useState(0);
+  const [results, setResults] = useState({
+    cpm: 0,
+    wpm: 0,
+    acc: 0,
+  });
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [highlightedIndex, setHighlightedIndex] = useState(0);
+  
+  useEffect(() => {
+    if (timer === 0) {
+      axios.get(`http://localhost:8080/api/data?language=${value}`)
+        .then(response => {
+          const data = response.data;
+          console.log(data);
+          setCodeData(data);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+      let intervalId;
+      if (timer) {
+        intervalId = setInterval(() => {
+          const elapsed = Date.now() - timer;
+          setElapsedTime(elapsed);
+        }, 1000);
+      }
+      return () => {
+        clearInterval(intervalId);
+      };
+  }, [value, timer]);
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60000);
+    const seconds = ((time % 60000) / 1000).toFixed(0);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+
+  const startTimer = () => {
+    setTimer(Date.now());
+  };
+
+  const checkAndSubmitResult = () => {
+    // console.log(userInput.length, codeData.data.fileContent.length);
+    // 사용자가 입력한 문자열과 코드 예문의 길이 비교
+    if (userInput.length === codeData.data.fileContent.length) {
+      // 결과 계산 및 서버로 전송
+      // 서버로 결과 전송
+      axios.post('http://localhost:8080/api/scores/create', {
+        userId: 1,
+        dataId: codeData.data.dataId,
+        cpm: results.cpm,
+        wpm: results.wpm,
+        acc: results.acc,
+        countTime: Math.floor(elapsedTime / 1000),
+        language: languageString
+      })
+      .then(response => {
+        console.log('Result sent to server:', response.data);
+        // 결과 페이지로 이동
+        navigate('/results');
+      })
+      .catch(error => console.error('Error:', error));
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { value } = e.target;
+    setUserInput(value);
+
+    // 사용자가 입력을 시작한 시점에서 타이머를 시작
+    if (!timer) {
+      startTimer();
+    }
+
+    // 코드 데이터가 아직 로드되지 않은 경우
+    if (!codeData || !codeData.data.fileContent) {
+      return;
+    }
+
+    // 정확도 계산
+    const correctChars = codeData.data.fileContent;
+    let correctCount = 0;
+    for (let i = 0; i < value.length; i++) {
+      if (value[i] === correctChars[i]) {
+        correctCount++;
+      }
+    }
+    const accuracy = (correctCount / correctChars.length) * 100;
+
+    // 타자 속도 계산
+    const wordsPerMinute = Math.floor(value.split(' ').length / (elapsedTime / 60000));
+    const charactersPerMinute = Math.floor(value.length / (elapsedTime / 60000));
+
+    // 결과 업데이트
+    setResults({
+      acc: accuracy,
+      wpm: wordsPerMinute,
+      cpm: charactersPerMinute,
+    });
+
+    // 오타 검출
+    if (value !== codeData.data.fileContent.slice(0, value.length)) {
+      const index = value.length - 1;
+      setHighlightedIndex(index);
+    } else {
+      setHighlightedIndex(-1);
+    }
+    checkAndSubmitResult();
+  };
+
+  // 탭 > 공백 4개 치환
+  const handleKeyDown = (e) => {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      // 현재 입력된 텍스트를 가져옴
+      const currentValue = userInput;
+      // 현재 커서의 위치를 가져옴
+      const cursorPosition = e.target.selectionStart;
+      // 새로운 값에 공백 4개를 추가
+      const newValue = currentValue.substring(0, cursorPosition) + '    ' + currentValue.substring(cursorPosition);
+      // 새로운 값을 입력란에 설정
+      setUserInput(newValue);
+      // 커서의 위치를 조정
+      e.target.setSelectionRange(cursorPosition + 4, cursorPosition + 4);
+    }
+  };
 
   return (
     <PageContainer>
       <TopBox>
-        <SourceText>// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved, ...(출처)</SourceText>
-        <TimerBox>00:00</TimerBox>
+        {/* <SourceText>// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved, ...(출처)</SourceText> */}
+        <TimerBox>{formatTime(elapsedTime)}</TimerBox>
       </TopBox>
       <Box>
-      {exampleSentences.map((sentence, index) => (
-        <TextBox key={index}>
-          <TextCode>{sentence}</TextCode>
-          <TextInput/>
+        <TextBox>
+          {codeData ? (
+            <TextCode>
+              {codeData.data.fileContent}
+              <TextInput
+                type="text"
+                value={userInput}
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
+                style={{
+                  color: highlightedIndex >= 0 ? '#ff0000' : '#fff',
+                }}
+              />
+            </TextCode>
+          ) : (
+            <p>Loading...</p>
+          )}
         </TextBox>
-      ))}
-      
       </Box>
-
       <IconBox>
         <ResultIcon icon={VscDebugRestart} />
       </IconBox>
