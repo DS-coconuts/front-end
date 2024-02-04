@@ -5,6 +5,7 @@ import Logo from "../assets/icons/Logo.svg";
 // import ProfileImg from "../assets/icons/UserProfileSymbol.svg";
 import IdImg from "../assets/icons/IdSymbol.svg";
 import PasswordImg from "../assets/icons/PasswordSymbol.svg";
+import { useNavigate } from "react-router-dom";
 
 const PageContainer = styled.div`
   background-color: #132043; /* 원하는 배경색을 여기에 지정하세요 */
@@ -191,6 +192,8 @@ const SignupButton = styled.div`
 
 export default function SignupPage() {
   // const [selectedImage, setSelectedImage] = useState(ProfileImg);
+  const navigate = useNavigate();
+
   const [info, setInfo] = useState({
     loginId: "",
     password: "",
@@ -236,6 +239,7 @@ export default function SignupPage() {
         localStorage.setItem("userId", userId); // 사용자 ID를 로컬 스토리지에 저장
         console.log("API 응답 데이터:", response);
         alert("회원가입 성공!");
+        navigate("/login");
         // window.location.href = `/`;
       } else {
         alert("회원가입에 실패했습니다.");
