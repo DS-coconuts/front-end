@@ -131,7 +131,7 @@ const ResultsPage = () => {
       // 데이터 URL을 이용하여 이미지 다운로드
       const link = document.createElement('a');
       link.href = imageDataUrl;
-      link.download = 'captured-image.png';
+      link.download = `COTADA_${Date.now()}.png`;
       link.click();
     });
   };
