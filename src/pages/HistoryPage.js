@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import axios from "axios";
 
@@ -49,6 +49,21 @@ const LanButtons = styled.div`
   align-items: center;
 `;
 
+const HistoryContainer = styled.div`
+  width: 90%;
+  overflow-y: auto;  /* 스크롤 기능 활성화 */
+  &::-webkit-scrollbar {
+    background-color: rgba(241, 180, 187, 0.3); /* 투명도 설정 */
+    border-radius: 10px; /* 선택적으로 테두리 반경 설정 */
+    width: 5px; /* 스크롤바 너비 */
+    height: 3px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(241, 180, 187, 0.7); /* 스크롤바 색상 */
+    border-radius: 10px;
+  }
+`;
+
 const dummydata = [
   {
     "scoreId": 1,
@@ -65,21 +80,39 @@ const dummydata = [
 ]
 
 const HistoryPage = () => {
-  // const [userHistory, setUserHistory] = useState([]);
+  const [ScoreItems, setScoreItems] = useState([]);
 
-  // axios.get(`http://localhost:8080/api/users/${1}/scores`)
+  // axios.get(`http://localhost:8080/api/users/scores?userId=${1}`)
   // .then(response => {
-  //   console.log('Result sent to server:', response.data);
-  //   // const newScoreItem = {
-  //   //   scoreId: response.data.scoreId,
-  //   //   cpm: response.data.cpm,
-  //   //   createdAt: response.data.createdAt,
-  //   //   language: response.data.language,
-  //   // };
-  //   // const newUserHistory = [...userHistory, newScoreItem];
-  //   // setUserHistory(newUserHistory);
+  //   ScoreItems = response.data.data.map(item => ({
+  //     scoreId: item.id,
+  //     cpm: item.cpm,
+  //     createdAt: item.createdAt,
+  //     language: item.language,
+  //   }));
   // })
   // .catch(error => console.error('Error:', error));
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/users/scores?userId=${1}`);
+        // console.log('response:', response.data);
+        const data = response.data.data.map(item => ({
+          scoreId: item.id,
+          cpm: item.cpm,
+          createdAt: item.createdAt,
+          language: item.language,
+        }));
+        // console.log(ScoreItems);
+        setScoreItems(data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <PageContainer>
@@ -101,13 +134,16 @@ const HistoryPage = () => {
             <img src={logo_JavaScript} alt={'logo_JavaScript'} style={{ width: 'auto', height: '33px'}} />
           </LanButton>
         </LanButtons>
-        {dummydata.map((value) => (
-          <TypingHistory 
-            language={value.language}
-            cpm={value.cpm}
-            createdAt={value.createdAt}
-          />
-        ))}
+        <HistoryContainer>
+          {ScoreItems.map((value) => (
+            <TypingHistory 
+              key={value.scoreId}
+              language={value.language}
+              cpm={value.cpm}
+              createdAt={value.createdAt}
+            />
+          ))}
+        </HistoryContainer>
       </Box>
     </PageContainer>
     );
