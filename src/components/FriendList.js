@@ -33,10 +33,15 @@ const IdStyle = styled.div`
     font-size: 24px;
     margin: 0 0 7px 0;
 `
-const FriendList = ({img, altText, id, text, buttonText, linkTo }) => {
+const FriendList = ({img, altText, id, text, buttonText, linkTo, onAddFriend  }) => {
     const handleButtonClick = () => {
-        // "방문하기" 버튼 클릭 시 이동
-        window.location.href = linkTo;
+        if (buttonText === "방문하기") {
+          // "방문하기" 버튼 클릭 시 이동
+          window.location.href = linkTo;
+        } else if (buttonText === "친구추가" && onAddFriend) {
+          // "친구추가" 버튼 클릭 시 onAddFriend 함수 호출
+          onAddFriend();
+        }
       };
     return (
         <FriendContainer>
@@ -47,8 +52,8 @@ const FriendList = ({img, altText, id, text, buttonText, linkTo }) => {
             </InfoStyle>
             <FriendButton 
                 text={buttonText}
-                onClick={handleButtonClick}
-            />
+                onClick={buttonText === "방문하기" ? handleButtonClick : onAddFriend}
+     />
         </FriendContainer>
         
     )

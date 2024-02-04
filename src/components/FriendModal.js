@@ -51,29 +51,29 @@ const FriendContainer = styled.div`
         border-radius: 10px;
     }
 `
-const FriendAddModal = ({ show, onClose }) => {
-  return (
-    <Modal show={show} onHide={onClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>친구 추가 성공</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        친구가 성공적으로 추가되었습니다!
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={onClose}>
-          닫기
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  );
-};
+// const FriendAddModal = ({ show, onClose }) => {
+//   return (
+//     <Modal show={show} onHide={onClose}>
+//       <Modal.Header closeButton>
+//         <Modal.Title>친구 추가 성공</Modal.Title>
+//       </Modal.Header>
+//       <Modal.Body>
+//         친구가 성공적으로 추가되었습니다!
+//       </Modal.Body>
+//       <Modal.Footer>
+//         <Button variant="secondary" onClick={onClose}>
+//           닫기
+//         </Button>
+//       </Modal.Footer>
+//     </Modal>
+//   );
+// };
 
 const FriendModal = (props) => {
   const [friends, setFriends] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const storedUserId = localStorage.getItem("userId"); // 로컬 스토리지에서 userId 가져오기
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   
 
   // 친구를 검색하는 API 호출
@@ -129,9 +129,9 @@ const addFriend = async (friendLoginId) => {
     const addedFriend = response.data.data;
     console.log('친구 추가 성공:', addedFriend);
     // TODO: 친구 추가 성공 시 어떤 동작을 할지 작성
-    navigate('/friendList');
+    
      alert("친구 추가 성공");
-   
+     searchUsers(searchTerm);
 
   } catch (error) {
     console.error('친구 추가 실패:', error);
