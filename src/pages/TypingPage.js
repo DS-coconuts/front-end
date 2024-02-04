@@ -113,7 +113,8 @@ const TypingPage = () => {
   });
   const [elapsedTime, setElapsedTime] = useState(0);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
-  
+  const [sectionStatistics, setSectionStatistics] = useState([]);
+
   useEffect(() => {
     if (timer === 0) {
       axios.get(`http://localhost:8080/api/data?language=${value}`)
@@ -124,16 +125,17 @@ const TypingPage = () => {
         })
         .catch(error => console.error('Error:', error));
     }
-      let intervalId;
-      if (timer) {
-        intervalId = setInterval(() => {
-          const elapsed = Date.now() - timer;
-          setElapsedTime(elapsed);
-        }, 1000);
-      }
-      return () => {
-        clearInterval(intervalId);
-      };
+
+    let intervalId;
+    if (timer) {
+      intervalId = setInterval(() => {
+        const elapsed = Date.now() - timer;
+        setElapsedTime(elapsed);
+      }, 1000);
+    }
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [value, timer]);
 
   const formatTime = (time) => {
@@ -164,10 +166,22 @@ const TypingPage = () => {
       .then(response => {
         // console.log('Result sent to server:', response.data);
         // 결과 페이지로 이동
-        navigate('/results', { state: { cpm: results.cpm, wpm: results.wpm, acc: results.acc, elapsedTime } });
+        navigate('/results', { state: { cpm: results.cpm, wpm: results.wpm, acc: results.acc, elapsedTime, sectionStatistics } });
       })
       .catch(error => console.error('Error:', error));
     }
+  };
+
+  const updateSectionStatistics = () => {
+    const sectionNumber = Math.floor(userInput.length / 30) + 1; // 구간 번호 계산
+    const typingSpeed = results.cpm;
+
+    // 기존의 통계 배열을 복사한 후 현재 구간의 통계를 추가
+    setSectionStatistics(prevStatistics => [
+      ...prevStatistics,
+      { section: sectionNumber, typing: typingSpeed },
+    ]);
+    // console.log(sectionStatistics);
   };
 
   const handleInputChange = (e) => {
@@ -212,6 +226,12 @@ const TypingPage = () => {
     } else {
       setHighlightedIndex(-1);
     }
+
+    // 30의 배수로 입력된 경우 구간별 통계 업데이트
+    if (value.length % 30 === 0) {
+      updateSectionStatistics();
+    }
+    
     checkAndSubmitResult();
   };
 

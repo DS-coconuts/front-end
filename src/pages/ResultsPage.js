@@ -100,8 +100,8 @@ const ResultsPage = () => {
     );
   }
   
-  const { cpm, wpm, acc, elapsedTime } = location.state;
-  // console.log(cpm, wpm, acc, elapsedTime);
+  const { cpm, wpm, acc, elapsedTime, sectionStatistics } = location.state;
+  // console.log(cpm, wpm, acc, elapsedTime, sectionStatistics);
 
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60000);
@@ -153,7 +153,7 @@ const ResultsPage = () => {
           </ResultContent>
           </div>
           <GraphBox>
-            <ResultGraph />
+            <ResultGraph typingData={sectionStatistics} />
             <CharContent>
                 <Title>Characters</Title>
                 <Text>{cpm}</Text>
