@@ -163,7 +163,7 @@ const TypingPage = () => {
       .then(response => {
         console.log('Result sent to server:', response.data);
         // 결과 페이지로 이동
-        navigate('/results');
+        navigate('/results', { state: { cpm: results.cpm, wpm: results.wpm, acc: results.acc, elapsedTime } });
       })
       .catch(error => console.error('Error:', error));
     }
@@ -191,7 +191,7 @@ const TypingPage = () => {
         correctCount++;
       }
     }
-    const accuracy = (correctCount / correctChars.length) * 100;
+    const accuracy = Math.floor((correctCount / correctChars.length) * 100);
 
     // 타자 속도 계산
     const wordsPerMinute = Math.floor(value.split(' ').length / (elapsedTime / 60000));
