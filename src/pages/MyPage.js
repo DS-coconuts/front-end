@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-
+import { Link, useParams } from "react-router-dom";
 import userIcon from "../assets/icons/userIcon_pink.png";
 
 const PageContainer = styled.div`
@@ -126,7 +125,9 @@ const HistoryButton = styled.button`
   }
 `;
 
+
 export default function MyPage() {
+  const { userId } = useParams();
   const storedUserId = localStorage.getItem("userId");
   const [userData, setUserData] = useState({
     loginId: "",
@@ -139,18 +140,27 @@ export default function MyPage() {
     cpm: "",
     language: "",
   });
+  const [isCurrentUser, setIsCurrentUser] = useState(false);
 
+  const handleTextLinkClick = (event) => {
+    if (!isCurrentUser) {
+      event.preventDefault();
+      // 비활성화 된 경우 실행할 작업 추가
+    }
+  };
+
+  
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/users/detail?userId=${storedUserId}`
+          `http://localhost:8080/api/users/detail?userId=${userId}`
         );
         const data = response.data;
-        console.log("API 응답 데이터:", data);
 
         if (data.status === 200 && data.code === "SUCCESS_GET_PROFILE") {
-          setUserData(data.data); // 'data' 속성으로부터 사용자 정보를 가져옵니다.
+          setUserData(data.data);
+          setIsCurrentUser(userId === storedUserId);
         }
       } catch (error) {
         console.error("마이 페이지 정보 불러오기 오류 발생:", error);
@@ -160,22 +170,20 @@ export default function MyPage() {
     fetchUserData();
     const fetchCpmData = async () => {
       try {
-        console.log("API 응답 데이터:");
         const scoreResponse = await axios.get(
-          `http://localhost:8080/api/users/scores?userId=${storedUserId}`
+          `http://localhost:8080/api/users/scores?userId=${userId}`
         );
         const data = scoreResponse.data;
-        console.log("API 응답 데이터:", data);
 
         if (
           data.status === 200 &&
           data.code === "SUCCESS_GET_USER_SCORES_LIST"
         ) {
-          const latestScore = data.data[0]; // 최근 기록을 가져옵니다.
+          const latestScore = data.data[0];
           setScoreData({
             createdAt: latestScore.createdAt,
             cpm: latestScore.cpm,
-            language: latestScore.language, // 'language'를 가져옵니다.
+            language: latestScore.language,
           });
         }
       } catch (error) {
@@ -184,12 +192,15 @@ export default function MyPage() {
       }
     };
     fetchCpmData();
-  }, [storedUserId]);
+  }, [userId, storedUserId]);
+
 
   return (
     <PageContainer>
       <Box>
-        <TextLink to="/editprofile">편집</TextLink>
+      <TextLink to={isCurrentUser ? "/editprofile" : "#"} onClick={handleTextLinkClick}>
+          편집
+        </TextLink>
         <ProfilBox>
           <img
             src={userData.image || userIcon}

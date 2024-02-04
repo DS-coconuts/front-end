@@ -20,7 +20,7 @@ function App() {
       <Route path="/ranking" element={<RankingPage />} />
       <Route path="/typing/:value" element={<TypingPage />} />
       <Route path="/results" element={<ResultsPage />} />
-      <Route path="/my" element={<MyPage />} />
+      <Route path="/my/:userId" element={<MyPage />} />
       <Route path="/history" element={<HistoryPage />} />
       <Route path="/editprofile" element={<EditProfilePage />} />
       <Route path="/friendlist" element={<FriendListPage />} />

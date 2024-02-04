@@ -4,8 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from "styled-components";
 import SearchBar from './SearchBar';
 import FriendList from '../components/FriendList';
-import { addFriendData } from '../assets/data/addFriendData';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import Button from 'react-bootstrap/button';
 
 const ModalContainer = styled(Modal)`
     display: flex;
@@ -50,38 +51,66 @@ const FriendContainer = styled.div`
         border-radius: 10px;
     }
 `
-
+const FriendAddModal = ({ show, onClose }) => {
+  return (
+    <Modal show={show} onHide={onClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>친구 추가 성공</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        친구가 성공적으로 추가되었습니다!
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={onClose}>
+          닫기
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
 
 const FriendModal = (props) => {
+  const [friends, setFriends] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const storedUserId = localStorage.getItem("userId"); // 로컬 스토리지에서 userId 가져오기
+  const navigate = useNavigate();
   
-    const [friends, setFriends] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
-   
-    // const [users, setUsers] = useState([]);
-    useEffect(() => {
-      // 사용자 목록을 불러오는 API 호출
-      axios
-        .get('http://localhost:8080/api/users/search', {
-          params: {
-            q: searchTerm,
-          },
-          data: {
-            userId: 1,
-          },
-        })
-        .then((response) => {
-          const userData = response.data.data;
-          setFriends(userData); // 이 부분을 setFriends로 수정
-        })
-        .catch((error) => {
-          console.error('Error fetching user data: ', error);
-        });
-    }, [searchTerm]);
- 
 
-    //검색창
-    const handleSearch = (term) => {
-      setSearchTerm(term.toLowerCase()); // 검색어 업데이트
+  // 친구를 검색하는 API 호출
+  const searchUsers = (searchTerm) => {
+    console.log('userId:', storedUserId);
+  console.log('searchTerm:', searchTerm);
+
+    axios
+      .get('http://localhost:8080/api/users/search', {
+        params: {
+          q: searchTerm,
+        userId: storedUserId,
+       }
+      })
+      .then((response) => {
+        const searchData = response.data.data;
+        setFriends(searchData);
+      })
+      .catch((error) => {
+        console.error('Error searching users: ', error);
+        
+        if (error.response) {
+          console.error('Server responded with non-2xx status', error.response.status, error.response.data);
+        } else if (error.request) {
+          console.error('No response received', error.request);
+        } else {
+          console.error('Error during request setup', error.message);
+        }
+
+      });
+  };
+
+   //검색창
+   const handleSearch = (term) => {
+    setSearchTerm(term); // 검색어 업데이트
+    // 검색어가 변경될 때마다 API 호출
+    searchUsers(term);
   };
     
   // 검색어와 선택된 카테고리에 따라 데이터 필터링하는 함수
@@ -90,11 +119,31 @@ const FriendModal = (props) => {
 
 //     return matchesSearch;
 // });
+const addFriend = async (friendLoginId) => {
+  try {
+    const response = await axios.post('http://localhost:8080/api/friends/add', {
+      userId: storedUserId, // 로그인한 사용자의 ID
+      friendLoginId: friendLoginId // 추가할 친구의 로그인 ID
+    });
 
-  const handleAddFriend = (friendId) => {
-  // 여기서 friendId를 이용하여 친구를 추가하는 로직을 수행하면 됩니다.
-    console.log(`친구 추가: ${friendId}`);
-  };
+    const addedFriend = response.data.data;
+    console.log('친구 추가 성공:', addedFriend);
+    // TODO: 친구 추가 성공 시 어떤 동작을 할지 작성
+    navigate('/friendList');
+     alert("친구 추가 성공");
+   
+
+  } catch (error) {
+    console.error('친구 추가 실패:', error);
+    // TODO: 친구 추가 실패 시 어떤 동작을 할지 작성
+  }
+};
+
+// 친구 추가 버튼 클릭 시 호출되는 함수
+const handleAddFriend = (friendLoginId) => {
+  // 여기서 friendLoginId를 이용하여 친구 추가 함수 호출
+  addFriend(friendLoginId);
+};
 
     return (
         <ModalContainer
@@ -114,12 +163,13 @@ const FriendModal = (props) => {
           {friends.map((friend) => (
                     <FriendList
                     key={friend.userId}
-                    img={friend.image} 
+                    img={friend.image || ''}  
                     altText={friend.loginId} 
-                    id={friend.userId}
-                    text={friend.introduction}
+                    id={friend.loginId}
+                    text={friend.introduction || ''}
                     buttonText={'친구추가'}
-                    onAddFriend={() => handleAddFriend(friend.userId)}
+                    goalCpm={friend.goalCpm}
+                    onAddFriend={() => handleAddFriend(friend.loginId)}
                     />
                 ) )}
             </FriendContainer>

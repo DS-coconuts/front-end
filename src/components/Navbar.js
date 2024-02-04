@@ -132,14 +132,14 @@ export default function Navbar() {
       <NavItems>
         {isLoggedIn === true ? (
           <>
-            <TextLink to="/my">
+            <TextLink to={`/my/${storedUserId}`}>
               <img
                 src={userData.image || userIcon}
                 alt={"userIcon"}
                 style={{ width: "auto", height: "30px", marginTop: "5px" }}
               />
             </TextLink>
-            <TextLink to="/my">
+            <TextLink to={`/my/${storedUserId}`}>
               <NavItem>{localStorage.getItem("loginId")}</NavItem>
             </TextLink>
             <TextLink to="/">
