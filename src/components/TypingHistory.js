@@ -27,6 +27,7 @@ const InfoText = styled.p`
 `;
 
 const TypingHistory = ({language, cpm, createdAt}) => {
+  // console.log(language, cpm, createdAt);
   return (
     <HistoryBox>
       <FnText>{language}</FnText>
