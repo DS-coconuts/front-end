@@ -5,7 +5,6 @@ import html2canvas from 'html2canvas';
 
 import styled from 'styled-components';
 import ResultGraph from '../components/ResultGraph';
-import { useParams } from 'react-router-dom';
 
 import { GrNext } from "react-icons/gr";
 import { VscDebugRestart } from "react-icons/vsc";
