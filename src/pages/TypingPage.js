@@ -98,6 +98,7 @@ const IconBox = styled.div`
 `
 
 const TypingPage = () => {
+  const storedUserId = localStorage.getItem("userId");
   const { value } = useParams();
   const languageString = typeof value === 'object' ? value.language.toString() : value;
   const navigate = useNavigate();
@@ -152,7 +153,7 @@ const TypingPage = () => {
       // 결과 계산 및 서버로 전송
       // 서버로 결과 전송
       axios.post('http://localhost:8080/api/scores/create', {
-        userId: 1,
+        userId: storedUserId,
         dataId: codeData.data.dataId,
         cpm: results.cpm,
         wpm: results.wpm,
