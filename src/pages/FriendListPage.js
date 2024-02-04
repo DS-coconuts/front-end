@@ -1,8 +1,9 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import styled from 'styled-components';
 import FriendList from '../components/FriendList';
 import AddFriendIcon from "../components/AddFriendIcon";
 import { friendData } from '../assets/data/friendData';
+import axios  from 'axios';
 
 const PageContainer = styled.div`
     height: 800px;
@@ -51,8 +52,25 @@ const TitleContainer = styled.div`
 
 
 const FriendListPage = () => {
-    const [friends, setFriends] = useState(friendData.results);
-    console.log('Friend data:', friends);
+    const storedUserId = localStorage.getItem("userId");
+    const [friends, setFriends] = useState([]);
+    
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get(`http://localhost:8080/api/friends?userId=${storedUserId}`);
+            const friendListData = response.data.data;
+            setFriends(friendListData);
+          } catch (error) {
+            console.error('Error fetching friend list data: ', error);
+          }
+        };
+    
+        if (storedUserId) {
+          fetchData();
+        }
+      }, [storedUserId]);
+
     return (
         <PageContainer>
             <TitleContainer>
@@ -62,11 +80,11 @@ const FriendListPage = () => {
             <FriendContainer>
                 {friends.map((friend) => (
                     <FriendList
-                    key={friend.key}
-                    img={friend.img} 
-                    altText={friend.altText} 
-                    id={friend.id}
-                    text={friend.text}
+                    key={friend.friendId}
+                    img={friend.toUserImage} 
+                    altText={friend.toUserLoginId} 
+                    id={friend.toUserLoginId}
+                    text={friend.toUserIntroduction}
                     buttonText={'방문하기'}
                     />
                 ) )}

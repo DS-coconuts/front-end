@@ -22,6 +22,6 @@ const ButtonStyle = styled.button`
 `;
 
 const FriendButton = ({text, onClick}) => {
-    return <ButtonStyle onclick={onClick}>{text}</ButtonStyle>
+    return <ButtonStyle onClick={onClick}>{text}</ButtonStyle>
 };
 export default FriendButton;

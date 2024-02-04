@@ -6,6 +6,7 @@ import userIconGreen from "../assets/icons/userIcon_green.png";
 import userIconBrown from "../assets/icons/userIcon_brown.png";
 import RankingFilter from '../components/RankingFilter';
 import { rankingData } from "../assets/data/rankingData";
+import axios from 'axios';
 
 const PageContainer = styled.div`
     width: 100%;
@@ -60,12 +61,28 @@ const getOrdinalSuffix = (rank) => {
 }
 
 const RankingPage = () => {
-    const [rankings, setRankings] = useState(rankingData.results);
-    const [selectedLanguage, setSelectedLanguage] = useState("");
+    // const [rankings, setRankings] = useState(rankingData.results);
+    const [rankings, setRankings] = useState([]);
+    // const [selectedLanguage, setSelectedLanguage] = useState("");
+    const [selectedLanguage, setSelectedLanguage] = useState("PYTHON");
+
     
-    useEffect(() => {
-        setSelectedLanguage("PYTHON");
-    }, []);
+     useEffect(() => {
+        // Fetch data from the API
+        axios
+            .get('http://localhost:8080/api/scores/rank', {
+                params: {
+                    language: selectedLanguage.toLowerCase(), // 파이썬이나 C 같은 언어명이 소문자로 오는 경우를 고려
+                },
+            })
+            .then((response) => {
+                const rankData = response.data.data;
+                setRankings(rankData);
+            })
+            .catch((error) => {
+                console.error('Error fetching rank data: ', error);
+            });
+    }, [selectedLanguage]);
 
     console.log("selected language: ", selectedLanguage);
     console.log("ranking data: ", rankings);
@@ -74,6 +91,8 @@ const RankingPage = () => {
     const handleCategoryFilter = (language) => {
         setSelectedLanguage(language);
     }
+
+    
 
     return (
         <PageContainer>
@@ -87,14 +106,15 @@ const RankingPage = () => {
                         <div>Score</div>
                     </Subtitle>
                 {sortedRanks
-                     .filter(rank => !selectedLanguage || rank.language === selectedLanguage)
-                     .slice(0, 4)
+                    //   .filter(rank => !selectedLanguage || (rank.user && rank.user.language.toLowerCase() === selectedLanguage.toLowerCase()))
+                      .slice(0, 4)
                      .map((rank, index) => (
                     <RankingList
-                    key={rank.scoreId}
+                    key={index + 1}
                     rank={`${(index + 1)}${getOrdinalSuffix(index + 1)}`}
-                    img={rank.user.image}
-                    id={rank.user.loginId}
+                    img={rank.image}
+                    altText={rank.userId}
+                    id={rank.loginId}
                     score={rank.cpm}
                     />
                 ) )}
