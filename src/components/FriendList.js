@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components"
 import FriendButton from "./FriendButton";
 
+import { Link } from 'react-router-dom';
+
 const FriendContainer = styled.div`
     width: 80%;
     height: 130px;
@@ -31,8 +33,11 @@ const IdStyle = styled.div`
     font-size: 24px;
     margin: 0 0 7px 0;
 `
-const FriendList = ({img, altText, id, text, buttonText, onAddFriend}) => {
-    
+const FriendList = ({img, altText, id, text, buttonText, linkTo }) => {
+    const handleButtonClick = () => {
+        // "방문하기" 버튼 클릭 시 이동
+        window.location.href = linkTo;
+      };
     return (
         <FriendContainer>
             <ProfileStyle src={img} alt={altText} />
@@ -42,7 +47,7 @@ const FriendList = ({img, altText, id, text, buttonText, onAddFriend}) => {
             </InfoStyle>
             <FriendButton 
                 text={buttonText}
-                onClick={onAddFriend}
+                onClick={handleButtonClick}
             />
         </FriendContainer>
         
