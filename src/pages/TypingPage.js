@@ -118,7 +118,7 @@ const TypingPage = () => {
       axios.get(`http://localhost:8080/api/data?language=${value}`)
         .then(response => {
           const data = response.data;
-          console.log(data);
+          // console.log(data);
           setCodeData(data);
         })
         .catch(error => console.error('Error:', error));
@@ -161,7 +161,7 @@ const TypingPage = () => {
         language: languageString
       })
       .then(response => {
-        console.log('Result sent to server:', response.data);
+        // console.log('Result sent to server:', response.data);
         // 결과 페이지로 이동
         navigate('/results', { state: { cpm: results.cpm, wpm: results.wpm, acc: results.acc, elapsedTime } });
       })
@@ -214,6 +214,19 @@ const TypingPage = () => {
     checkAndSubmitResult();
   };
 
+  // 리셋
+  const handleReset = () => {
+    setUserInput('');
+    setTimer(0);
+    setResults({
+      acc: 0,
+      wpm: 0,
+      cpm: 0,
+    });
+    setElapsedTime(0);
+    setHighlightedIndex(0);
+  };
+
   // 탭 > 공백 4개 치환
   const handleKeyDown = (e) => {
     if (e.key === 'Tab') {
@@ -258,7 +271,7 @@ const TypingPage = () => {
         </TextBox>
       </Box>
       <IconBox>
-        <ResultIcon icon={VscDebugRestart} />
+        <ResultIcon icon={VscDebugRestart} onClick={handleReset} />
       </IconBox>
     </PageContainer>
   );

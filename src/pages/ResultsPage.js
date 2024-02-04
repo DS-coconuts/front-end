@@ -104,7 +104,7 @@ const ResultsPage = () => {
   }
   
   const { cpm, wpm, acc, elapsedTime } = location.state;
-  console.log(cpm, wpm, acc, elapsedTime);
+  // console.log(cpm, wpm, acc, elapsedTime);
 
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60000);
