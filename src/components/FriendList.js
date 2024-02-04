@@ -31,7 +31,7 @@ const IdStyle = styled.div`
     font-size: 24px;
     margin: 0 0 7px 0;
 `
-const FriendList = ({img, altText, id, text, buttonText}) => {
+const FriendList = ({img, altText, id, text, buttonText, onAddFriend}) => {
     
     return (
         <FriendContainer>
@@ -42,7 +42,7 @@ const FriendList = ({img, altText, id, text, buttonText}) => {
             </InfoStyle>
             <FriendButton 
                 text={buttonText}
-                onclick={()=>{}}
+                onClick={onAddFriend}
             />
         </FriendContainer>
         

@@ -1,10 +1,11 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from "styled-components";
 import SearchBar from './SearchBar';
 import FriendList from '../components/FriendList';
 import { addFriendData } from '../assets/data/addFriendData';
+import axios from 'axios';
 
 const ModalContainer = styled(Modal)`
     display: flex;
@@ -51,9 +52,32 @@ const FriendContainer = styled.div`
 `
 
 
-function FriendModal(props) {
-    const [friends, setFriends] = useState(addFriendData.results);
+const FriendModal = (props) => {
+  
+    const [friends, setFriends] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+   
+    // const [users, setUsers] = useState([]);
+    useEffect(() => {
+      // 사용자 목록을 불러오는 API 호출
+      axios
+        .get('http://localhost:8080/api/users/search', {
+          params: {
+            q: searchTerm,
+          },
+          data: {
+            userId: 1,
+          },
+        })
+        .then((response) => {
+          const userData = response.data.data;
+          setFriends(userData); // 이 부분을 setFriends로 수정
+        })
+        .catch((error) => {
+          console.error('Error fetching user data: ', error);
+        });
+    }, [searchTerm]);
+ 
 
     //검색창
     const handleSearch = (term) => {
@@ -61,11 +85,16 @@ function FriendModal(props) {
   };
     
   // 검색어와 선택된 카테고리에 따라 데이터 필터링하는 함수
-  const searchedFriend = friends.filter(friend => {
-    const matchesSearch = !searchTerm || friend.id.toLowerCase().includes(searchTerm);
+//   const searchedFriend = friends.filter(friend => {
+//     const matchesSearch = !searchTerm || friend.id.toLowerCase().includes(searchTerm);
 
-    return matchesSearch;
-});
+//     return matchesSearch;
+// });
+
+  const handleAddFriend = (friendId) => {
+  // 여기서 friendId를 이용하여 친구를 추가하는 로직을 수행하면 됩니다.
+    console.log(`친구 추가: ${friendId}`);
+  };
 
     return (
         <ModalContainer
@@ -82,14 +111,15 @@ function FriendModal(props) {
           </ModalHeader>
           <ModalBody>
           <FriendContainer>
-          {searchedFriend.map((friend) => (
+          {friends.map((friend) => (
                     <FriendList
-                    key={friend.key}
-                    img={friend.img} 
-                    altText={friend.altText} 
-                    id={friend.id}
-                    text={friend.text}
+                    key={friend.userId}
+                    img={friend.image} 
+                    altText={friend.loginId} 
+                    id={friend.userId}
+                    text={friend.introduction}
                     buttonText={'친구추가'}
+                    onAddFriend={() => handleAddFriend(friend.userId)}
                     />
                 ) )}
             </FriendContainer>

@@ -51,7 +51,7 @@ const RankingList = ({rank, img, altText, id, score}) => {
         <RankContainer>
             <RankStyle>{rank}</RankStyle>
             <InfoStyle>
-                <ProfileStyle src={img} alt={altText} />
+                {img ? <ProfileStyle src={img} alt={altText} /> : <div>No Image</div>}
                 <IdStyle>{id}</IdStyle> 
             </InfoStyle>
             <ScoreStyle>{score}</ScoreStyle>
