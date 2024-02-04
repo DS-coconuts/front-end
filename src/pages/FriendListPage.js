@@ -76,7 +76,7 @@ const FriendListPage = () => {
       const handleVisitFriend = (friendId) => {
         // 방문하기 버튼 클릭 시 실행되는 함수
         // 원하는 라우팅 처리를 여기에 추가
-        navigate(`/friend/${friendId}`); // friendId에 따라 동적 라우팅
+        navigate(`../mypage/${friendId}`); // friendId에 따라 동적 라우팅
     };
 
     return (
