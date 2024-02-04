@@ -53,6 +53,10 @@ const FriendButton = styled.button`
   color: #f1b4bb;
   font-size: 30px;
   font-family: "bitbit";
+  &:hover {
+    background-color: #1f4172;
+    transition: 0.5s;
+  }
 `;
 
 const FriendLink = styled(Link)`
@@ -115,6 +119,10 @@ const HistoryButton = styled.button`
   border: none;
   border-radius: 15px;
   background-color: #49546e;
+  &:hover {
+    background-color: #1f4172;
+    transition: 0.5s;
+  }
 `;
 
 export default function MyPage() {

@@ -32,6 +32,7 @@ const Box = styled.div`
 `;
 
 const LanButton = styled.button`
+  cursor: pointer;
   padding: 10px 10px;
   margin: 5px;
   width: 130px;
@@ -40,6 +41,11 @@ const LanButton = styled.button`
   border-radius: 30px;
   background-color: #fff;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+  &:hover,
+  &:focus {
+    background-color: #F1B4BB;
+    transition: 0.5s;
+  }
 `;
 
 const LanButtons = styled.div`
@@ -64,34 +70,24 @@ const HistoryContainer = styled.div`
   }
 `;
 
-const dummydata = [
-  {
-    "scoreId": 1,
-    "cpm": 530,
-    "createdAt": "2024-01-28",
-    "language": "C"
-  },
-  {
-    "scoreId": 2,
-    "cpm": 556,
-    "createdAt": "2024-02-01",
-    "language": "python"
-  },
-]
+// const dummydata = [
+//   {
+//     "scoreId": 1,
+//     "cpm": 530,
+//     "createdAt": "2024-01-28",
+//     "language": "C"
+//   },
+//   {
+//     "scoreId": 2,
+//     "cpm": 556,
+//     "createdAt": "2024-02-01",
+//     "language": "python"
+//   },
+// ]
 
 const HistoryPage = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState(null);
   const [ScoreItems, setScoreItems] = useState([]);
-
-  // axios.get(`http://localhost:8080/api/users/scores?userId=${1}`)
-  // .then(response => {
-  //   ScoreItems = response.data.data.map(item => ({
-  //     scoreId: item.id,
-  //     cpm: item.cpm,
-  //     createdAt: item.createdAt,
-  //     language: item.language,
-  //   }));
-  // })
-  // .catch(error => console.error('Error:', error));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -110,32 +106,40 @@ const HistoryPage = () => {
         console.error('Error:', error);
       }
     };
-
     fetchData();
   }, []);
+
+  // 필터 기능
+  const handleLanguageClick = (language) => {
+    setSelectedLanguage((prevLanguage) => (prevLanguage === language ? null : language));
+  };
+
+  const filteredScores = selectedLanguage
+    ? ScoreItems.filter((item) => item.language === selectedLanguage)
+    : ScoreItems;
 
   return (
     <PageContainer>
       <Box>
         <LanButtons>
-          <LanButton>
-            <img src={logo_python} alt={'logo_python'} style={{ width: 'auto', height: '30px'}} />
+          <LanButton onClick={() => handleLanguageClick('Python')}>
+            <img src={logo_python} alt={'logo_python'} style={{ width: 'auto', height: '33px', marginTop: '2px'}} />
           </LanButton>
-          <LanButton>
-            <img src={logo_JAVA} alt={'logo_JAVA'} style={{ width: 'auto', height: '30px'}} />
+          <LanButton onClick={() => handleLanguageClick('Java')}>
+            <img src={logo_JAVA} alt={'logo_JAVA'} style={{ width: 'auto', height: '35px', marginTop: '-5px'}} />
           </LanButton>
-          <LanButton>
-            <img src={logo_C} alt={'logo_C'} style={{ width: 'auto', height: '30px'}} />
+          <LanButton onClick={() => handleLanguageClick('C')}>
+            <img src={logo_C} alt={'logo_C'} style={{ width: 'auto', height: '35px', marginTop: '-2px'}} />
           </LanButton>
-          <LanButton>
-            <img src={logo_HTML} alt={'logo_HTML'} style={{ width: 'auto', height: '30px', marginTop: '2px'}} />
+          <LanButton onClick={() => handleLanguageClick('HTML')}>
+            <img src={logo_HTML} alt={'logo_HTML'} style={{ width: 'auto', height: '35px', marginTop: '-2px'}} />
           </LanButton>
-          <LanButton>
-            <img src={logo_JavaScript} alt={'logo_JavaScript'} style={{ width: 'auto', height: '33px'}} />
+          <LanButton onClick={() => handleLanguageClick('JavaScript')}>
+            <img src={logo_JavaScript} alt={'logo_JavaScript'} style={{ width: 'auto', height: '35px', marginTop: '-2px'}} />
           </LanButton>
         </LanButtons>
         <HistoryContainer>
-          {ScoreItems.map((value) => (
+          {filteredScores.map((value) => (
             <TypingHistory 
               key={value.scoreId}
               language={value.language}
