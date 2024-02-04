@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components"
 import FriendButton from "./FriendButton";
-import defaultImage from '../assets/icons/userIcon_pink.png';
+import defaultImage from '../assets/icons/userIcon_green.png';
 import { Link } from 'react-router-dom';
 
 const FriendContainer = styled.div`
