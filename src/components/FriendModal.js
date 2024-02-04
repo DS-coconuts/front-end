@@ -7,6 +7,7 @@ import FriendList from '../components/FriendList';
 import { addFriendData } from '../assets/data/addFriendData';
 import axios from 'axios';
 
+
 const ModalContainer = styled(Modal)`
     display: flex;
     justify-content: center;
@@ -51,37 +52,46 @@ const FriendContainer = styled.div`
     }
 `
 
-
 const FriendModal = (props) => {
+  const [friends, setFriends] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const storedUserId = localStorage.getItem("userId"); // 로컬 스토리지에서 userId 가져오기
   
-    const [friends, setFriends] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
-   
-    // const [users, setUsers] = useState([]);
-    useEffect(() => {
-      // 사용자 목록을 불러오는 API 호출
-      axios
-        .get('http://localhost:8080/api/users/search', {
-          params: {
-            q: searchTerm,
-          },
-          data: {
-            userId: 1,
-          },
-        })
-        .then((response) => {
-          const userData = response.data.data;
-          setFriends(userData); // 이 부분을 setFriends로 수정
-        })
-        .catch((error) => {
-          console.error('Error fetching user data: ', error);
-        });
-    }, [searchTerm]);
- 
+  // 친구를 검색하는 API 호출
+  const searchUsers = (searchTerm) => {
+    console.log('userId:', storedUserId);
+  console.log('searchTerm:', searchTerm);
 
-    //검색창
-    const handleSearch = (term) => {
-      setSearchTerm(term.toLowerCase()); // 검색어 업데이트
+    axios
+      .get('http://localhost:8080/api/users/search', {
+        params: {
+          q: searchTerm,
+        userId: storedUserId,
+       }
+      })
+      .then((response) => {
+        const searchData = response.data.data;
+        setFriends(searchData);
+      })
+      .catch((error) => {
+        console.error('Error searching users: ', error);
+        
+        if (error.response) {
+          console.error('Server responded with non-2xx status', error.response.status, error.response.data);
+        } else if (error.request) {
+          console.error('No response received', error.request);
+        } else {
+          console.error('Error during request setup', error.message);
+        }
+
+      });
+  };
+
+   //검색창
+   const handleSearch = (term) => {
+    setSearchTerm(term.toLowerCase()); // 검색어 업데이트
+    // 검색어가 변경될 때마다 API 호출
+    searchUsers(term.toLowerCase());
   };
     
   // 검색어와 선택된 카테고리에 따라 데이터 필터링하는 함수
@@ -114,11 +124,12 @@ const FriendModal = (props) => {
           {friends.map((friend) => (
                     <FriendList
                     key={friend.userId}
-                    img={friend.image} 
+                    img={friend.image || ''}  
                     altText={friend.loginId} 
-                    id={friend.userId}
-                    text={friend.introduction}
+                    id={friend.loginId}
+                    text={friend.introduction || ''}
                     buttonText={'친구추가'}
+                    goalCpm={friend.goalCpm}
                     onAddFriend={() => handleAddFriend(friend.userId)}
                     />
                 ) )}

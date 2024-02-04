@@ -4,6 +4,7 @@ import FriendList from '../components/FriendList';
 import AddFriendIcon from "../components/AddFriendIcon";
 import { friendData } from '../assets/data/friendData';
 import axios  from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const PageContainer = styled.div`
     height: 800px;
@@ -52,6 +53,7 @@ const TitleContainer = styled.div`
 
 
 const FriendListPage = () => {
+    const navigate = useNavigate();
     const storedUserId = localStorage.getItem("userId");
     const [friends, setFriends] = useState([]);
     
@@ -71,6 +73,12 @@ const FriendListPage = () => {
         }
       }, [storedUserId]);
 
+      const handleVisitFriend = (friendId) => {
+        // 방문하기 버튼 클릭 시 실행되는 함수
+        // 원하는 라우팅 처리를 여기에 추가
+        navigate(`/friend/${friendId}`); // friendId에 따라 동적 라우팅
+    };
+
     return (
         <PageContainer>
             <TitleContainer>
@@ -86,6 +94,7 @@ const FriendListPage = () => {
                     id={friend.toUserLoginId}
                     text={friend.toUserIntroduction}
                     buttonText={'방문하기'}
+                    onVisitFriend={() => handleVisitFriend(friend.friendId)}
                     />
                 ) )}
             </FriendContainer>
