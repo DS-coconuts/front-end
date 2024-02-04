@@ -1,5 +1,7 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import html2canvas from 'html2canvas';
 
 import styled from 'styled-components';
 import ResultGraph from '../components/ResultGraph';
@@ -85,6 +87,7 @@ const IconBox = styled.div`
 
 const ResultsPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   if (!location.state) {
     return (
@@ -93,12 +96,6 @@ const ResultsPage = () => {
         <ResultBox>
           <p style={{textAlign: 'center'}}>결과 데이터가 유효하지 않습니다.</p>
         </ResultBox>
-        <IconBox>
-          <ResultIcon icon={GrNext} />
-          <ResultIcon icon={VscDebugRestart} />
-          <ResultIcon icon={FaRankingStar} />
-          <ResultIcon icon={MdPhotoSizeSelectActual} />
-        </IconBox>
     </PageContainer>
     );
   }
@@ -112,37 +109,62 @@ const ResultsPage = () => {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
+  const handleMy = () => {
+    navigate('/my');
+  };
+
+  const handleMain = () => {
+    navigate('/');
+  };
+
+  const handleReanking = () => {
+    navigate('/ranking');
+  };
+
+  const handleCapture = () => {
+    // 현재 컴포넌트를 캡쳐하고 이미지로 변환
+    html2canvas(document.getElementById('capture-component')).then(canvas => {
+      // 캡쳐한 이미지를 데이터 URL로 변환
+      const imageDataUrl = canvas.toDataURL();
+      // 데이터 URL을 이용하여 이미지 다운로드
+      const link = document.createElement('a');
+      link.href = imageDataUrl;
+      link.download = 'captured-image.png';
+      link.click();
+    });
+  };
+
   return (
-    <PageContainer>
-      <ResultTitle>RESULT</ResultTitle>
-      <ResultBox>
-        <div>
-        <ResultContent>
-          <Title>acc</Title>
-          <Text>{acc}%</Text>
-        </ResultContent>
-        <ResultContent>
-          <Title>wpm</Title>
-          <Text>{wpm}</Text>
-        </ResultContent>
-        <ResultContent>
-          <Title>time</Title>
-          <Text>{formatTime(elapsedTime)}</Text>
-        </ResultContent>
-        </div>
-        <GraphBox>
-          <ResultGraph />
-          <CharContent>
-              <Title>Characters</Title>
-              <Text>{cpm}</Text>
-          </CharContent>
-        </GraphBox>
-      </ResultBox>
+    <PageContainer id="capture-component">
+        <ResultTitle>RESULT</ResultTitle>
+        <ResultBox>
+          <div >
+          <ResultContent>
+            <Title>acc</Title>
+            <Text>{acc}%</Text>
+          </ResultContent>
+          <ResultContent>
+            <Title>wpm</Title>
+            <Text>{wpm}</Text>
+          </ResultContent>
+          <ResultContent>
+            <Title>time</Title>
+            <Text>{formatTime(elapsedTime)}</Text>
+          </ResultContent>
+          </div>
+          <GraphBox>
+            <ResultGraph />
+            <CharContent>
+                <Title>Characters</Title>
+                <Text>{cpm}</Text>
+            </CharContent>
+          </GraphBox>
+        </ResultBox>
       <IconBox>
-        <ResultIcon icon={GrNext} />
-        <ResultIcon icon={VscDebugRestart} />
-        <ResultIcon icon={FaRankingStar} />
-        <ResultIcon icon={MdPhotoSizeSelectActual} />
+        <ResultIcon icon={GrNext} onClick={handleMy} />
+        <ResultIcon icon={VscDebugRestart} onClick={handleMain} />
+        <ResultIcon icon={FaRankingStar} onClick={handleReanking} />
+        <ResultIcon icon={MdPhotoSizeSelectActual} onClick={handleCapture} />
       </IconBox>
     </PageContainer>
   );
