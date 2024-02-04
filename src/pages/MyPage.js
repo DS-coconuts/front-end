@@ -47,7 +47,6 @@ const GoalButton = styled.button`
 
 const FriendButton = styled.button`
   padding: 3px 20px;
-  margin-left: 20px;
   border: none;
   border-radius: 15px;
   background-color: #49546e;
@@ -69,6 +68,7 @@ const ProfilBox = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-right: 60px;
 `;
 
 const ProfilText = styled.div`
@@ -160,16 +160,23 @@ export default function MyPage() {
     fetchUserData();
     const fetchCpmData = async () => {
       try {
+        console.log("API 응답 데이터:");
         const scoreResponse = await axios.get(
           `http://localhost:8080/api/users/scores?userId=${storedUserId}`
         );
         const data = scoreResponse.data;
+        console.log("API 응답 데이터:", data);
 
         if (
           data.status === 200 &&
           data.code === "SUCCESS_GET_USER_SCORES_LIST"
         ) {
-          setScoreData(data.data); // 'data' 속성으로부터 사용자 정보를 가져옵니다.
+          const latestScore = data.data[0]; // 최근 기록을 가져옵니다.
+          setScoreData({
+            createdAt: latestScore.createdAt,
+            cpm: latestScore.cpm,
+            language: latestScore.language, // 'language'를 가져옵니다.
+          });
         }
       } catch (error) {
         console.error("최근 기록 불러오기 오류 발생:", error);
