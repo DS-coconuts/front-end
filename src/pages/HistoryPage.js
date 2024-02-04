@@ -86,13 +86,14 @@ const HistoryContainer = styled.div`
 // ]
 
 const HistoryPage = () => {
+  const storedUserId = localStorage.getItem("userId");
   const [selectedLanguage, setSelectedLanguage] = useState(null);
   const [ScoreItems, setScoreItems] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/users/scores?userId=${1}`);
+        const response = await axios.get(`http://localhost:8080/api/users/scores?userId=${storedUserId}`);
         // console.log('response:', response.data);
         const data = response.data.data.map(item => ({
           scoreId: item.id,
