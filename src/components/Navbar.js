@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -29,66 +30,80 @@ const NavItem = styled.p`
   font-family: "NanumSquareNeo";
 `;
 
-const Navbar = () => {
+export default function Navbar() {
+  // const { userId } = useParams();
+  const storedUserId = localStorage.getItem("userId");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState({
     loginId: "",
     image: userIcon,
   });
 
-  // api 연동 후 삭제
-  const mockUserData = {
-    loginId: "abc",
-    password: "1234",
-    image: userIcon,
-  };
-
   useEffect(() => {
-    // 예시 API 주소 및 로그인 확인
-    const checkLoginStatus = async () => {
-      try {
-        const response = await fetch("/api/users/login", {
-          method: "GET",
-        });
+    const storedLoggedIn = localStorage.getItem("isLoggedIn");
+    if (storedLoggedIn === "true") {
+      const storedUserId = localStorage.getItem("userId");
 
-        const data = await response.json();
-
-        if (data.status === 200 && data.code === "SUCCESS_LOGIN") {
-          setIsLoggedIn(true);
-          // 응답에서 loginId와 image를 추출하여 상태를 업데이트합니다.
-          setUserData({
-            loginId: data.data.loginId,
-            image: data.data.image,
-          });
-        }
-      } catch (error) {
-        console.error("로그인 상태 확인 중 오류 발생:", error);
+      if (storedUserId) {
+        fetchUserData(storedUserId); // loginId를 전달하여 fetchUserData 호출
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+        console.log("로컬 스토리지에서 loginId를 찾을 수 없습니다.");
       }
-    };
+    } else {
+      setIsLoggedIn(false);
+      console.log("사용자는 이미 로그아웃 상태입니다.");
+    }
+  }, []);
 
-    checkLoginStatus();
-  }, []); // useEffect를 한 번만 호출하도록 빈 배열을 전달합니다.
+  const fetchUserData = async (userId) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/users/detail?userId=${userId}`
+      );
+
+      const data = response.data;
+      console.log(data);
+      console.log(data);
+
+      if (data.status === 200 && data.code === "SUCCESS_GET_PROFILE") {
+        setUserData({
+          loginId: data.data.loginId,
+          image: data.data.image,
+        });
+      }
+    } catch (error) {
+      console.error("나브바 불러오기 오류 발생:", error);
+    }
+  };
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("/api/users/logout", {
-        method: "GET",
-      });
+      //   // 로컬 스토리지에서 loginId 가져오기
+      //   const storedLoginId = localStorage.getItem("loginId");
 
-      const data = await response.json();
+      //   const response = await fetch(
+      //     `http://localhost:8080/api/users/logout/${storedLoginId}`,
+      //     {
+      //       method: "GET",
+      //     }
+      //   );
 
-      if (data.status === 200 && data.code === "SUCCESS_LOGOUT") {
-        // 사용자가 로그아웃되었음을 반영하도록 상태를 업데이트합니다.
-        setIsLoggedIn(false);
-        alert("로그아웃 되었습니다.");
-        window.location.href = `/`;
-      } else {
-        // 에러 케이스를 처리하세요
-        console.error("로그아웃 실패:", data.message);
-      }
+      // const data = await response.json();
+      // if (data.status === 200 && data.code === "SUCCESS_LOGOUT") {
+      //   // 로그아웃 성공 시 로컬 스토리지 정보 초기화
+      localStorage.clear();
+      setIsLoggedIn(false);
+      alert("로그아웃 되었습니다.");
+      window.location.href = `/`;
+
+      // } else {
+      //   // 에러 케이스를 처리하세요
+      //   console.error("로그아웃 실패:", data.message);
+      // }
     } catch (error) {
       console.error("로그아웃 중 오류 발생:", error);
-      // }
     }
   };
 
@@ -117,13 +132,15 @@ const Navbar = () => {
       <NavItems>
         {isLoggedIn === true ? (
           <>
-            <img
-              src={userData.image}
-              alt={"userIcon"}
-              style={{ width: "auto", height: "25px", marginTop: "5px" }}
-            />
             <TextLink to="/my">
-              <NavItem>{userData.loginId}</NavItem>
+              <img
+                src={userData.image || userIcon}
+                alt={"userIcon"}
+                style={{ width: "auto", height: "30px", marginTop: "5px" }}
+              />
+            </TextLink>
+            <TextLink to="/my">
+              <NavItem>{localStorage.getItem("loginId")}</NavItem>
             </TextLink>
             <TextLink to="/">
               <NavItem onClick={handleLogout}>로그아웃</NavItem>
@@ -137,6 +154,4 @@ const Navbar = () => {
       </NavItems>
     </NavContainer>
   );
-};
-
-export default Navbar;
+}

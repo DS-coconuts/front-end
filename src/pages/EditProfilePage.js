@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
-// import ProfileImg from "../assets/icons/UserProfileSymbol.svg";
+import ProfileImg from "../assets/icons/UserProfileSymbol.svg";
 
 const PageContainer = styled.div`
   background-color: #132043;
@@ -122,64 +122,28 @@ const EditButton = styled.div`
 
 const EditProfilePage = () => {
   const [userIntroduction, setUserIntroduction] = useState("");
-  const [userGoalcpm, setUserGoalcpm] = useState("");
+  const [userGoalCpm, setUserGoalCpm] = useState("");
+  const [previewImage, setPreviewImage] = useState();
   const [userImage, setUserImage] = useState();
 
   const userId = localStorage.getItem("userId");
 
-  /*api 연동 후에 삭제*/
-  const mockUserData = {
-    introduction: "youna입니다:)",
-    goalcpm: "600",
-    image:
-      "https://i.namu.wiki/i/XtJ0E7b6qoVPX394BSWRRvtgqbklV6a21OzwCfevS0QEP6mSjgn3aUvnJwplZk0M7-UZV6rpUQ_ufg8xl77Bcw.webp",
-  };
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  // const response = await axios.get(`/api/users/${userId}`);
-  // const userData = response.data.data;
-  // setUserIntroduction(userData.introduction);
-  // setUserGoalcpm(userData.goalcpm);
-  // setUserImage(userData.image);
-  //   } catch (error) {
-  //     console.error("Error fetching user data:", error);
-  //   }
-  // };
-  //   fetchData();
-  // }, [userId]);
-
-  /*api 연동 후에 삭제*/
   useEffect(() => {
-    setUserIntroduction(mockUserData.introduction);
-    setUserGoalcpm(mockUserData.goalcpm);
-    setUserImage(mockUserData.image);
-  }, [mockUserData]);
-
-  const handleEdit = () => {
-    // 수정된 정보를 서버에 전송
-    const formData = new FormData();
-    formData.append("introduction", userIntroduction);
-    formData.append("goalcpm", userGoalcpm);
-    formData.append("image", userImage);
-
-    axios
-      .patch(`/api/users/${userId}`, formData)
-      .then((response) => {
-        const updatedUserData = response.data.data;
-        setUserIntroduction(updatedUserData.introduction);
-        setUserGoalcpm(updatedUserData.goalcpm);
-        setUserImage(updatedUserData.image);
-        console.log(updatedUserData);
-        alert("수정 완료!");
-      })
-      .catch((error) => {
-        console.error("Error editing user data:", error);
-      });
-    console.log(formData);
-    // window.location.href = `/my`;
-  };
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/api/users/detail?userId=${userId}`
+        );
+        const userData = response.data.data;
+        setUserIntroduction(userData.introduction);
+        setUserGoalCpm(userData.goalCpm);
+        setUserImage(userData.image);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+    fetchData();
+  }, [userId]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -188,17 +152,57 @@ const EditProfilePage = () => {
       const reader = new FileReader();
 
       reader.onload = (e) => {
-        setUserImage(e.target.result);
+        setPreviewImage(e.target.result); // 이미지 미리보기 업데이트
+        setUserImage(file); // 실제 이미지 데이터 업데이트
       };
 
       reader.readAsDataURL(file);
     }
   };
 
+  // handleEdit 함수에서 formData에 이미지를 추가할 때의 조건문 수정
+  const handleEdit = () => {
+    // 수정된 정보를 서버에 전송
+    const formData = new FormData();
+
+    const infoData = {
+      introduction: userIntroduction,
+      goalCpm: userGoalCpm,
+    };
+    formData.append("info", JSON.stringify(infoData));
+
+    formData.append("introduction", userIntroduction);
+    formData.append("goalCpm", userGoalCpm);
+
+    // 이미지가 선택되었을 때만 FormData에 추가
+    if (userImage instanceof File) {
+      formData.append("image", userImage);
+    }
+
+    axios
+      .put(`http://localhost:8080/api/users/update?userId=${userId}`, formData)
+      .then((response) => {
+        const updatedUserData = response.data.data;
+        setUserIntroduction(updatedUserData.introduction);
+        setUserGoalCpm(updatedUserData.goalCpm);
+        setUserImage(updatedUserData.image);
+        console.log(updatedUserData);
+
+        alert("수정 완료!");
+        window.location.href = `/my`;
+      })
+      .catch((error) => {
+        console.error("Error editing user data:", error);
+      });
+  };
+
   return (
     <PageContainer>
       <UserProfileWrapper onSubmit={handleImageChange}>
-        <UserProfileImg src={userImage} alt="ProfileImg" />
+        <UserProfileImg
+          src={previewImage || userImage || ProfileImg}
+          alt="ProfileImg"
+        />
         <UserProfileChangeButton>
           프로필 사진 변경
           <HiddenFileInput
@@ -221,8 +225,8 @@ const EditProfilePage = () => {
           <UserGoalLabel>목표 타수</UserGoalLabel>
           <UserGoalInput
             type="text"
-            placeholder={userGoalcpm}
-            onChange={(e) => setUserGoalcpm(e.target.value)}
+            placeholder={userGoalCpm}
+            onChange={(e) => setUserGoalCpm(e.target.value)}
           />
         </UserGoalWrapper>
       </UserInformationWrapper>
