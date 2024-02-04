@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Logo from "../assets/icons/Logo.svg";
-import ProfileImg from "../assets/icons/UserProfileSymbol.svg";
+// import ProfileImg from "../assets/icons/UserProfileSymbol.svg";
 import IdImg from "../assets/icons/IdSymbol.svg";
 import PasswordImg from "../assets/icons/PasswordSymbol.svg";
 
@@ -17,44 +17,44 @@ const PageContainer = styled.div`
 `;
 
 const LogoImg = styled.img`
-  width: 100px; /* 로고의 너비를 조절할 수 있습니다. */
+  width: 230px; /* 로고의 너비를 조절할 수 있습니다. */
   height: auto; /* 높이를 자동으로 조절하여 비율을 유지합니다. */
   margin-bottom: 20px; /* 로고와 텍스트 사이에 여백을 주기 위한 추가 설정 */
   margin-top: 15px;
 `;
 
-const UserProfileWrapper = styled.div`
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-`;
+// const UserProfileWrapper = styled.div`
+//   height: auto;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   margin-bottom: 20px;
+// `;
 
-const UserProfileImg = styled.img`
-  width: auto; /* 로고의 너비를 조절할 수 있습니다. */
-  height: 70px; /* 높이를 자동으로 조절하여 비율을 유지합니다. */
-  margin-bottom: 10px; /* 로고와 텍스트 사이에 여백을 주기 위한 추가 설정 */
-`;
+// const UserProfileImg = styled.img`
+//   width: auto; /* 로고의 너비를 조절할 수 있습니다. */
+//   height: 70px; /* 높이를 자동으로 조절하여 비율을 유지합니다. */
+//   margin-bottom: 10px; /* 로고와 텍스트 사이에 여백을 주기 위한 추가 설정 */
+// `;
 
-const UserProfileChangeButton = styled.label`
-  width: 100px;
-  height: 22px;
-  border-radius: 15px;
-  background: #f1b4bb;
-  color: #132043;
-  text-align: center;
-  font-size: 13px;
-  display: flex;
-  align-items: center; /* 세로 방향에서 중앙 정렬을 위해 추가 */
-  justify-content: center; /* 가로 방향에서 중앙 정렬을 위해 추가 */
-  cursor: pointer;
-  font-family: "bitbit";
-`;
+// const UserProfileChangeButton = styled.label`
+//   width: 100px;
+//   height: 22px;
+//   border-radius: 15px;
+//   background: #f1b4bb;
+//   color: #132043;
+//   text-align: center;
+//   font-size: 13px;
+//   display: flex;
+//   align-items: center; /* 세로 방향에서 중앙 정렬을 위해 추가 */
+//   justify-content: center; /* 가로 방향에서 중앙 정렬을 위해 추가 */
+//   cursor: pointer;
+//   font-family: "bitbit";
+// `;
 
-const HiddenFileInput = styled.input`
-  display: none;
-`;
+// const HiddenFileInput = styled.input`
+//   display: none;
+// `;
 
 const UserInformationWrapper = styled.div`
   width: 400px;
@@ -190,22 +190,14 @@ const SignupButton = styled.div`
 `;
 
 export default function SignupPage() {
-  const [selectedImage, setSelectedImage] = useState(ProfileImg);
+  // const [selectedImage, setSelectedImage] = useState(ProfileImg);
   const [info, setInfo] = useState({
     loginId: "",
     password: "",
     introduction: "",
-    goalcpm: "",
-    image: selectedImage,
+    goalCpm: 0,
+    // image: selectedImage,
   });
-
-  const mockUserData = {
-    loginId: info.loginId,
-    password: info.password,
-    introduction: info.introduction,
-    goalcpm: info.goalcpm,
-    image: info.image,
-  };
 
   const handleChange = (e) => {
     setInfo({
@@ -214,30 +206,40 @@ export default function SignupPage() {
     });
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setSelectedImage(file);
-    setInfo({
-      ...info,
-      image: URL.createObjectURL(file),
-    });
-  };
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   setSelectedImage(file);
+  //   setInfo({
+  //     ...info,
+  //     image: URL.createObjectURL(file),
+  //   });
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // const response = await axios.post("/api/users/register", {
-      //   loginId: info.loginId,
-      //   password: info.password,
-      //   introduction: info.introduction,
-      //   goalcpm: info.goalcpm,
-      //   image: info.image,
-      // });
-      // console.log(response);
-      // if (response.data.message === "회원가입 성공")
-      console.log(mockUserData);
-      alert("회원가입 성공!");
-      window.location.href = `/`;
+      const response = await axios.post(
+        "http://localhost:8080/api/users/register",
+        {
+          loginId: info.loginId,
+          password: info.password,
+          introduction: info.introduction,
+          goalCpm: info.goalCpm,
+          // image: info.image,
+        }
+      );
+      console.log(response);
+      if (response.data.code === "SUCCESS_REGISTER") {
+        const userId = response.data.data.id;
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("loginId", info.loginId);
+        localStorage.setItem("userId", userId); // 사용자 ID를 로컬 스토리지에 저장
+        console.log("API 응답 데이터:", response);
+        alert("회원가입 성공!");
+        // window.location.href = `/`;
+      } else {
+        alert("회원가입에 실패했습니다.");
+      }
     } catch (error) {
       console.error(error);
       alert("회원가입에 실패했습니다.");
@@ -247,7 +249,7 @@ export default function SignupPage() {
   return (
     <PageContainer>
       <LogoImg src={Logo} alt="Logo" />
-      <UserProfileWrapper onSubmit={handleSubmit}>
+      {/* <UserProfileWrapper onSubmit={handleSubmit}>
         <UserProfileImg src={info.image || ProfileImg} alt="ProfileImg" />
         <UserProfileChangeButton>
           프로필 사진 변경
@@ -257,7 +259,7 @@ export default function SignupPage() {
             onChange={handleImageChange}
           />
         </UserProfileChangeButton>
-      </UserProfileWrapper>
+      </UserProfileWrapper> */}
       <UserInformationWrapper>
         <UserIdWrapper>
           <UserIdIcon src={IdImg} alt="IdImg" />
@@ -291,9 +293,9 @@ export default function SignupPage() {
         <UserGoalWrapper>
           <UserGoalLabel>목표 타수</UserGoalLabel>
           <UserGoalInput
-            type="text"
+            type="number"
             placeholder=""
-            name="goalcpm"
+            name="goalCpm"
             onChange={handleChange}
           />
         </UserGoalWrapper>

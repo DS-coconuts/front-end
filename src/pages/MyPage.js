@@ -47,6 +47,7 @@ const GoalButton = styled.button`
 
 const FriendButton = styled.button`
   padding: 3px 20px;
+  margin-left: 20px;
   border: none;
   border-radius: 15px;
   background-color: #49546e;
@@ -126,24 +127,62 @@ const HistoryButton = styled.button`
 `;
 
 export default function MyPage() {
-  const mockUserData = {
-    status: 200,
-    code: "SUCCESS_GET_USER",
-    message: "사용자 정보 불러오기를 성공했습니다.",
-    data: {
-      userId: 1,
-      loginId: "abc",
-      password: "1234",
-      introduction: "youna입니다:)",
-      goalcpm: "600",
-      image: userIcon,
-      score: {
-        cpm: 530,
-        createdAt: "2024-1-26",
-        language: "C",
-      },
-    },
-  };
+  // const { userId } = useParams();
+  const storedUserId = localStorage.getItem("userId");
+  const [userData, setUserData] = useState({
+    loginId: "",
+    introduction: "",
+    image: userIcon,
+    goalCpm: null,
+  });
+  const [cpmData, setCpmData] = useState(
+    null
+    // {
+    // createdAt: "",
+    // cpm: "",
+    // language: "",
+    // }
+  );
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/api/users/detail?userId=${storedUserId}`
+        );
+        const data = response.data;
+        console.log("API 응답 데이터:", data);
+
+        if (data.status === 200 && data.code === "SUCCESS_GET_PROFILE") {
+          setUserData(data.data); // 'data' 속성으로부터 사용자 정보를 가져옵니다.
+        }
+      } catch (error) {
+        console.error("마이 페이지 정보 불러오기 오류 발생:", error);
+      }
+    };
+
+    fetchUserData();
+    //   const fetchCpmData = async () => {
+    //     try {
+    //       const cpmResponse = await axios.get(
+    //         /*api 주소 수정 필요*/
+    //         // `http://localhost:8080/api/users/`
+    //       );
+    //       const cpmData = cpmResponse.data;
+
+    //       if (
+    //         cpmData.status === 200 &&
+    //         cpmData.code === "SUCCESS_GET_USER_SCORES_LIST"
+    //       ) {
+    //         setCpmData(cpmData.data); // 'data' 속성으로부터 사용자 정보를 가져옵니다.
+    //       }
+    //     } catch (error) {
+    //       console.error("최근 기록 불러오기 오류 발생:", error);
+    //       setCpmData(null);
+    //     }
+    //   };
+    //   fetchCpmData();
+  }, [storedUserId]);
 
   return (
     <PageContainer>
@@ -151,29 +190,31 @@ export default function MyPage() {
         <TextLink to="/editprofile">편집</TextLink>
         <ProfilBox>
           <img
-            src={mockUserData.data.image}
+            src={userData.image || userIcon}
             alt={"userIcon"}
             style={{ width: "auto", height: "230px" }}
           />
           <ProfilText>
-            <InfoTitleText>{mockUserData.data.userId}</InfoTitleText>
-            <InfoText>{mockUserData.data.introduction}</InfoText>
-            <GoalButton>목표 타수: {mockUserData.data.goalcpm}</GoalButton>
+            <InfoTitleText>{userData.loginId}</InfoTitleText>
+            <InfoText>{userData.introduction}</InfoText>
+            <GoalButton>목표 타수: {userData.goalCpm}</GoalButton>
           </ProfilText>
         </ProfilBox>
         <FriendLink to="/friendlist">
           <FriendButton>팔로우 목록</FriendButton>
         </FriendLink>
-        <Link to="/history">
-          <HistoryButton>
-            <FnTextBox>
-              <FnTitleText>{mockUserData.data.score.language}</FnTitleText>
-              <FnTitleText>기록 더보기</FnTitleText>
-            </FnTextBox>
-            <FnText>달성 타수: {mockUserData.data.score.cpm}타</FnText>
-            <FnText>날짜: {mockUserData.data.score.createdAt}</FnText>
-          </HistoryButton>
-        </Link>
+        {cpmData ? (
+          <Link to="/history">
+            <HistoryButton>
+              <FnTextBox>
+                <FnTitleText>{cpmData.score?.language}</FnTitleText>
+                <FnTitleText>기록 더보기</FnTitleText>
+              </FnTextBox>
+              <FnText>달성 타수: {cpmData.score?.cpm}타</FnText>
+              <FnText>날짜: {cpmData.score?.createdAt}</FnText>
+            </HistoryButton>
+          </Link>
+        ) : null}
       </Box>
     </PageContainer>
   );

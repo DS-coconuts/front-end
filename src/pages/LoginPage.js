@@ -159,23 +159,25 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // const response = await axios.post("/api/users/login", loginInfo);
-      // console.log(response);
-      // if (response.data.message === "로그인을 성공했습니다.") {
-      //   localStorage.setItem("loginId", response.data.loginId);
-      const mockUserData = {
-        loginId: loginInfo.loginId,
-        password: loginInfo.password,
-      };
-      console.log(mockUserData);
-      alert("로그인 성공!");
-      window.location.href = `/`;
-      // } else {
-      //   alert("아이디 혹은 비밀번호가 틀렸습니다.");
-      // }
+      const response = await axios.post(
+        "http://localhost:8080/api/users/login",
+        loginInfo
+      );
+      console.log(response);
+      if (response.data.message === "로그인을 성공했습니다.") {
+        const userId = response.data.data.id;
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("loginId", loginInfo.loginId);
+        localStorage.setItem("userId", userId); // 사용자 ID를 로컬 스토리지에 저장
+        alert("로그인 성공!");
+        window.location.href = `/`;
+      } else {
+        console.error("로그인 실패:", response.data.message);
+        alert("아이디 혹은 비밀번호가 틀렸습니다.");
+      }
     } catch (error) {
-      console.error(error);
-      alert("서버 에러");
+      console.error("로그인 중 오류 발생:", error);
+      alert("아이디 혹은 비밀번호를 확인해주세요.");
     }
   };
 
