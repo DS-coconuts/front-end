@@ -202,11 +202,11 @@ export default function MyPage() {
           <Link to="/history">
             <HistoryButton>
               <FnTextBox>
-                <FnTitleText>{scoreData.score?.language}</FnTitleText>
+                <FnTitleText>{scoreData.language}</FnTitleText>
                 <FnTitleText>기록 더보기</FnTitleText>
               </FnTextBox>
-              <FnText>달성 타수: {scoreData.score?.cpm}타</FnText>
-              <FnText>날짜: {scoreData.score?.createdAt}</FnText>
+              <FnText>달성 타수: {scoreData.cpm}타</FnText>
+              <FnText>날짜: {scoreData.createdAt}</FnText>
             </HistoryButton>
           </Link>
         ) : null}
