@@ -189,7 +189,7 @@ const EditProfilePage = () => {
         console.log(updatedUserData);
 
         alert("수정 완료!");
-        window.location.href = `/my`;
+        window.location.href = `/my/${userId}`;
       })
       .catch((error) => {
         console.error("Error editing user data:", error);
