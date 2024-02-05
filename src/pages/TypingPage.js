@@ -12,7 +12,7 @@ const PageContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 100%;
+  height: 900px;
 `;
 
 const Box = styled.div`
@@ -20,7 +20,6 @@ const Box = styled.div`
   display: flex;
   align-items: center;
   width: 70%;
-  height: 100%;
   border-radius: 20px;
   background-color: #313D5B;
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
@@ -43,6 +42,7 @@ const TimerBox = styled.div`
   font-size: 40px;
   font-family: 'bitbit';
   margin-bottom: 15px;
+  width: 120px;
 `;
 
 const TopBox = styled.div`

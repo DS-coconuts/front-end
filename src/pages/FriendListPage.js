@@ -9,21 +9,19 @@ import { Link } from 'react-router-dom';
 
 const PageContainer = styled.div`
     height: 800px;
-    padding: 150px 500px;
+    padding: 100px 500px;
     background: #132043;
     margin: 0 auto;
     font-family:'NanumSquareNeo'; 
 
     @media (max-width: 1500px) {
-        padding: 150px 100px; /* 작은 화면일 때 패딩값 변경 */
+        padding: 100px 100px; /* 작은 화면일 때 패딩값 변경 */
     }
 `;
 
 const FriendContainer = styled.div`
     max-height: 500px;
     overflow-y: auto;  /* 스크롤 기능 활성화 */
-    scrollbar-width: thin; /* Firefox */
-    scrollbar-color:  transparent transparent; /* Firefox */
     &::-webkit-scrollbar {
         background-color: rgba(241, 180, 187, 0.3); /* 투명도 설정 */
         border-radius: 10px; /* 선택적으로 테두리 반경 설정 */

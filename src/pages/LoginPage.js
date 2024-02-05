@@ -14,6 +14,7 @@ const PageContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column; /* 세로 중앙 정렬을 위한 추가 설정 */
+  height: 700px;
 `;
 
 const LogoImg = styled.img`

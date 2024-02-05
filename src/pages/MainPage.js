@@ -14,7 +14,7 @@ const PageContainer = styled.div`
   align-items: center;
   flex-direction: column;
   background-color: #132043;
-  height: 100%;
+  height: 700px;
   width: 100%;
   padding: 100px;
 `;
