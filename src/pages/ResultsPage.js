@@ -15,7 +15,7 @@ import ResultIcon from '../components/ResultIcon';
 const PageContainer = styled.div`
   width: 100%;
   height: 800px;
-  padding: 100px;
+  padding: 50px 100px 100px 100px;
   background: #132043;
   margin: 0 auto;
   font-family:'NanumSquareNeo'; 

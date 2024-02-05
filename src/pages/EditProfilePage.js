@@ -10,6 +10,7 @@ const PageContainer = styled.div`
   justify-content: center;
   flex-direction: column; /* 세로 중앙 정렬을 위한 추가 설정 */
   font-family: "NanumSquareNeo";
+  height: 700px;
 `;
 
 const UserProfileWrapper = styled.div`

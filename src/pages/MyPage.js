@@ -10,7 +10,7 @@ const PageContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 100%;
+  height: 700px;
 `;
 
 const Box = styled.div`

@@ -23,7 +23,6 @@ const TypingChart = ({ typingData }) => {
   // const tooltipFormatter = (value) => [`${value}타`];
   const tooltipFormatter = (value, name, props) => [`${value}타`, `Section ${props.payload.section}`];
   
-  
   return (
     <div>
       <LineChart
@@ -33,7 +32,7 @@ const TypingChart = ({ typingData }) => {
         margin={{ top: 20, right: 30, left: 30, bottom: 10 }}
       >
         <CartesianGrid strokeDasharray="1 1" />
-        <XAxis dataKey="section" tick={{ fill: '#FFFFFF', fontSize: '12px'}} />
+        <XAxis dataKey="section" tick={{ fill: 'transparent' }} />
         <YAxis  tick={{ fill: '#FFFFFF', fontSize: '12px'}} />
         <Tooltip contentStyle={{ backgroundColor: '#F1B4BB', fontSize: '15px', borderRadius: '5px', border: 'none', width: '160px', height: '70px'}}
           itemStyle={{ color: '#FFFFFF' }}
