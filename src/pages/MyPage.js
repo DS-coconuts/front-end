@@ -198,9 +198,13 @@ export default function MyPage() {
   return (
     <PageContainer>
       <Box>
-      <TextLink to={isCurrentUser ? "/editprofile" : "#"} onClick={handleTextLinkClick}>
-          편집
-        </TextLink>
+        {isCurrentUser ? 
+          <TextLink to="/editprofile">
+            편집
+          </TextLink> 
+          : 
+          <TextLink style={{marginTop: '42px'}}/>
+        }
         <ProfilBox>
           <img
             src={userData.image || userIcon}
@@ -213,15 +217,25 @@ export default function MyPage() {
             <GoalButton>목표 타수: {userData.goalCpm}</GoalButton>
           </ProfilText>
         </ProfilBox>
-        <FriendLink to={isCurrentUser ? "/friendlist" : "#"}>
-          <FriendButton>팔로우 목록</FriendButton>
-        </FriendLink>
+        {isCurrentUser ? 
+          <FriendLink to={isCurrentUser ? "/friendlist" : "#"}>
+            <FriendButton>팔로우 목록</FriendButton>
+          </FriendLink>
+          : 
+          <FriendLink>
+            <FriendButton>최근 기록</FriendButton>
+          </FriendLink>
+        }
         {scoreData ? (
           <Link to={isCurrentUser ? "/history" : "#"}>
             <HistoryButton>
               <FnTextBox>
                 <FnTitleText>{scoreData.language}</FnTitleText>
-                <FnTitleText>기록 더보기</FnTitleText>
+                {isCurrentUser ? 
+                  <FnTitleText>기록 더보기</FnTitleText>
+                  : 
+                  <div/>
+                }
               </FnTextBox>
               <FnText>달성 타수: {scoreData.cpm}타</FnText>
               <FnText>날짜: {scoreData.createdAt}</FnText>
