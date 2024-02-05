@@ -42,6 +42,7 @@ const TimerBox = styled.div`
   font-size: 40px;
   font-family: 'bitbit';
   margin-bottom: 15px;
+  width: 120px;
 `;
 
 const TopBox = styled.div`
